@@ -1,0 +1,3 @@
+コマンド
+tr -d ' \t\r\n' < ~/.vimrc | md5sum
+
