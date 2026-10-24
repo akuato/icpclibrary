@@ -33,13 +33,3 @@ auto SA(string s) {
    lcp.erase(begin(lcp));
    return pair{sa, lcp};
 }
-void solve(int test) {
-   string s;
-   cin >> s;
-   int n = s.size();
-   auto re = SA(s);
-   auto sa = re.first, lcp = re.second;
-   reverse(all(lcp));
-   lcp.pop_back();
-   reverse(all(lcp));
-}

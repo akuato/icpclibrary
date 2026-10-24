@@ -1,5 +1,5 @@
 #include "test/template.hpp"
-#include "src/string/SuffixArray.hpp"
+#include "src/string/suffix_array.hpp"
 // #include "atcoder/string"
 
 mt19937 rnd;

@@ -1,6 +1,7 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/suffixarray"
 #include "test/template.hpp"
-#include "src/string/SuffixArray.hpp"
+#define repi(i, a, b) for(ll i = (a); i < (b); i++)
+#include "src/string/suffix_array.hpp"
 
 int main() {
    cin.tie(0)->sync_with_stdio(0);

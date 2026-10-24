@@ -6,5 +6,8 @@ node_modules/
 .verify-helper/docs/static/notebook.html
 .verify-helper/docs/static/notebook.pdf
 a.out
+*.out
 *.dSYM/
+cf.cpp
+notebook.pdf
 Claude outputs/
