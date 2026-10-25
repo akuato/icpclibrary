@@ -1,6 +1,10 @@
 // 最小費用流 O(FElogV)。コストは非負
 struct mcf_graph {
-   struct edge { int to; ll cap, cost; int rev; };
+   struct edge {
+      int to;
+      ll cap, cost;
+      int rev;
+   };
    ll V;
    vector<vector<edge>> g;
    vll h, dis, pv, pe;

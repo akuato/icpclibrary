@@ -12,11 +12,12 @@ struct TreeHash {
    }
    void dfs(vi& ng, int v) {
       h[v] = 1, ht[v] = 0;
-      for(int u : g[v]) if(!ng[u]) {
-         ng[u] = 1, dfs(ng, u), ng[u] = 0;
-         while(sz(rnd) <= ht[u]) rnd.push_back(mt());
-         h[v] *= (h[u] + rnd[ht[u]]) | 1;
-         chmax(ht[v], ht[u] + 1);
-      }
+      for(int u : g[v])
+         if(!ng[u]) {
+            ng[u] = 1, dfs(ng, u), ng[u] = 0;
+            while(sz(rnd) <= ht[u]) rnd.push_back(mt());
+            h[v] *= (h[u] + rnd[ht[u]]) | 1;
+            chmax(ht[v], ht[u] + 1);
+         }
    }
 };

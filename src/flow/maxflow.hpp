@@ -1,6 +1,10 @@
 // Dinic法 O(V^2E)
 struct mf_graph {
-   struct edge { int to; ll cap; int rev; };
+   struct edge {
+      int to;
+      ll cap;
+      int rev;
+   };
    ll V;
    vector<vector<edge>> g;
    vll dis, nxt;
@@ -17,7 +21,8 @@ struct mf_graph {
       while(sz(q)) {
          ll v = q.front();
          q.pop();
-         for(auto& e : g[v]) if(e.cap > 0 && dis[e.to] < 0) dis[e.to] = dis[v] + 1, q.push(e.to);
+         for(auto& e : g[v])
+            if(e.cap > 0 && dis[e.to] < 0) dis[e.to] = dis[v] + 1, q.push(e.to);
       }
    }
    ll dfs(ll v, ll t, ll f) {
@@ -26,7 +31,10 @@ struct mf_graph {
          auto& e = g[v][i];
          if(e.cap > 0 && dis[v] < dis[e.to]) {
             ll d = dfs(e.to, t, min(f, e.cap));
-            if(d > 0) { e.cap -= d, g[e.to][e.rev].cap += d; return d; }
+            if(d > 0) {
+               e.cap -= d, g[e.to][e.rev].cap += d;
+               return d;
+            }
          }
       }
       return 0;

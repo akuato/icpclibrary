@@ -2,7 +2,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
-#define rep(i, n) for(ll i = 0; i <(n); i++)
+#define rep(i, n) for(ll i = 0; i < (n); i++)
 #define repi(i, a, b) for(ll i = (a); i < (b); i++)
 #define all(x) (x).begin(), (x).end()
 #define arr(x) (x).rbegin(), (x).rend()

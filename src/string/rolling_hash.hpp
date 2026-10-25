@@ -1,33 +1,33 @@
-// https://github.com/YNUCPC/ynu-icpc-library/blob/main/src/string/rolling_hash.hpp
-struct RollingHash {
-   static constexpr int M = 2;
-   static constexpr long long MODS[M] = {999999937, 1000000007};
-   static constexpr long long BASE = 9973;
-   vector<long long> powb[M], hash[M];
-   int n;
-   RollingHash() {}
-   RollingHash(const string& str) { init(str); }
-   void init(const string& str) {
-      n = str.size();
-      for(int k = 0; k < M; k++) {
-         powb[k].resize(n + 1, 1);
-         hash[k].resize(n + 1, 0);
-         for(int i = 0; i < n; i++) {
-            hash[k][i + 1] = (hash[k][i] * BASE + str[i]) % MODS[k];
-            powb[k][i + 1] = powb[k][i] * BASE % MODS[k];
-         }
+// mod 2^61-1、基数はランダム。b と p は全インスタンスで共有されるので別の文字列同士も比較できる
+using ull = unsigned long long;
+struct RH {
+   static constexpr ull M = (1ull << 61) - 1;
+   static inline vector<ull> p = {1};
+   static inline ull b = 0;
+   vector<ull> h;
+   static ull mul(ull x, ull y) {
+      __uint128_t z = (__uint128_t)x * y;
+      ull w = (ull)(z >> 61) + (ull)(z & M);
+      return w >= M ? w - M : w;
+   }
+   static void ext(ll n) {
+      if(!b) b = M / 2 + mt19937_64(chrono::steady_clock::now().time_since_epoch().count())() % (M / 2);
+      while(sz(p) <= n) p.push_back(mul(p.back(), b));
+   }
+   static ull concat(ull x, ull y, ll ly) {  // x の後ろに、長さ ly のハッシュ y をつなぐ
+      ext(ly);
+      ull w = mul(x, p[ly]) + y;
+      return w >= M ? w - M : w;
+   }
+   RH(const string& s) : h(sz(s) + 1) {
+      ext(sz(s));
+      for(ll i = 0; i < sz(s); i++) {
+         h[i + 1] = mul(h[i], b) + s[i];
+         if(h[i + 1] >= M) h[i + 1] -= M;
       }
    }
-   // get hash str[l,r)
-   long long get(int l, int r, int k) {
-      long long res = hash[k][r] - hash[k][l] * powb[k][r - l] % MODS[k];
-      if(res < 0) res += MODS[k];
-      return res;
+   ull get(ll l, ll r) {  // s[l,r)
+      ull w = h[r] + M - mul(h[l], p[r - l]);
+      return w >= M ? w - M : w;
    }
 };
-
-bool match(RollingHash& rh1, int l1, int r1, RollingHash& rh2, int l2, int r2) {
-   bool res = true;
-   for(int k = 0; k < RollingHash::M; k++) { res &= rh1.get(l1, r1, k) == rh2.get(l2, r2, k); }
-   return res;
-}
