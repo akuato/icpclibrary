@@ -1,0 +1,32 @@
+" ========== 基本 ==========
+sy on
+se nu bs=2 cin sta ts=4 sw=4 et
+se ic scs hls is
+se mouse=a so=5 ls=2 ru wmnu wim=longest,list,full
+se noswapfile hid cul sb spr
+se path=.,**
+se cot=menuone,noselect
+
+" ========== 括弧 ==========
+ino ( ()<Left>
+ino { {}<Left>
+ino [ []<Left>
+ino " ""<Left>
+ino ' ''<Left>
+ino <expr> ) getline('.')[col('.')-1]==')'?'<Right>':')'
+ino <expr> } getline('.')[col('.')-1]=='}'?'<Right>':'}'
+ino <expr> ] getline('.')[col('.')-1]==']'?'<Right>':']'
+ino <expr> <CR> getline('.')[col('.')-2]=='{' && getline('.')[col('.')-1]=='}' ? '<CR><Esc>O' : '<CR>'
+ino <expr> <BS> index([')','}',']','"',"'"],getline('.')[col('.')-1])>=0 && index(['(','{','[','"',"'"],getline('.')[col('.')-2])>=0 ? '<BS><Del>' : '<BS>'
+
+" ========== 検索 ==========
+nn <Space> :noh<CR>
+
+" ========== コンパイル・実行 ==========
+se mp=g++\ -std=gnu++20\ -g\ -O1\ -fsanitize=address,undefined\ -fno-sanitize-recover=all\ -Wall\ -Wextra\ -Wshadow\ -o\ a\ %
+nn <F5> :w<CR>:make<CR>:cw<CR>
+nn <F6> :!./a < in<CR>
+nn <F7> :w<CR>:!g++ -std=gnu++20 -O2 -o a %<CR>
+nn <F8> :cn<CR>
+nn <F9> :cp<CR>
+nn <F2> :0r ~/template.hpp<CR>

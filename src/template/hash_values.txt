@@ -1,3 +1,60 @@
-コマンド
-tr -d ' \t\r\n' < ~/.vimrc | md5sum
+# 本番でハッシュを確認するコマンド（打ったコードにコメントは無いので、空白を消すだけでよい）
+#   tr -d '[:space:]' | md5sum | cut -c-6
+#   -> 貼り付け -> Ctrl + D
+# 手元でこの表を作り直すコマンド
+#   sh src/template/hash.sh --all
 
+data-structure/2DSegtree.hpp                  6ce929
+data-structure/ConvexHullTrick.hpp            84c189
+data-structure/FastSet.hpp                    bf4f0b
+data-structure/fenwick_tree.hpp               60d4dd
+data-structure/lazy_segtree.hpp               4a7b33
+data-structure/LiChao.hpp                     92e522
+data-structure/Mosalgo.hpp                    6bff59
+data-structure/RollbackUnionFind.hpp          ef8861
+data-structure/segtree.hpp                    78c480
+data-structure/UnionFind.hpp                  8f4a82
+extra/modint_fast.hpp                         4b6639
+flow/bipartite-matching.hpp                   845322
+flow/maxflow.hpp                              0459fb
+flow/mincostflow.hpp                          eddc72
+FPS/FFT_fast.hpp                              d932d5
+FPS/FFT.hpp                                   63d23d
+graph/centroid_decomposition.hpp              dae9cb
+graph/dijkstra.hpp                            e9adaf
+graph/edge.hpp                                863cfa
+graph/eulertrail.hpp                          83e15f
+graph/hld.hpp                                 dc8d60
+graph/lowlink.hpp                             07c344
+graph/matrix_tree.hpp                         5ce1b7
+graph/scc.hpp                                 9d4785
+graph/TreeHash.hpp                            c07d91
+graph/Trie.hpp                                63ded2
+math/BinaryGCD.hpp                            3ed6fb
+math/EulerPhi.hpp                             2443cb
+math/ExtGCD.hpp                               c3fa9b
+math/floor_sum.hpp                            930ca0
+math/lagrange.hpp                             c96283
+math/linear_congruence.hpp                    c6a31e
+math/math_template.hpp                        8743ef
+math/Matrix.hpp                               fe12c1
+math/primitive_root.hpp                       19c243
+math/xorConvolution.hpp                       b6be6f
+memo/Bi-Connected-Components.hpp              eddd4d
+memo/dynamic_segtree.hpp                      279c02
+memo/geometry.hpp                             49dca1
+memo/int128.hpp                               a4c180
+memo/random.hpp                               bf85b5
+memo/range_edge_graph.hpp                     f3f96c
+modint/BarrettReduction.hpp                   b6414f
+modint/combination.hpp                        7f04ef
+modint/convolution.hpp                        673c1c
+modint/modint.hpp                             3db9f2
+string/KMP.hpp                                8f3c46
+string/lcp_array.hpp                          2c8f78
+string/Manacher.hpp                           5882fb
+string/palindrome.hpp                         c3ad5a
+string/rolling_hash.hpp                       33dd22
+string/suffix_array.hpp                       79d0c6
+string/z_algorithm.hpp                        146991
+template/template.hpp                         c48eb9
