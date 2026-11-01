@@ -1,6 +1,6 @@
 // https://github.com/YNUCPC/ynu-icpc-library/blob/main/src/datastructure/lazysegtree.hpp
 template<class S, S (*op)(S, S), S (*e)(), class F, S (*mapping)(F, S), F (*composition)(F, F), F (*id)()>
-struct lazy_segtree {   // ACL と同じ名前・同じ使い方
+struct lazy_segtree {  // ACL と同じ名前・同じ使い方
    int _n, size, log;
    vector<S> dat;
    vector<F> lz;

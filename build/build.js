@@ -35,7 +35,7 @@ function addCode(folder, filename) {
 
     // C++ ならハッシュ値を計算
     if (filename.endsWith(".cpp") || filename.endsWith(".hpp")) {
-        var text_hash = cp.execSync(`cat ${folder}/${filename} | sh build/hash.sh`);
+        var text_hash = cp.execSync(`cat ${folder}/${filename} | sh src/template/hash.sh`);
         codeContent += `
         md5: ${text_hash}`;
     }
