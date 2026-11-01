@@ -1,7 +1,6 @@
 // https://github.com/YNUCPC/ynu-icpc-library/blob/main/src/datastructure/lazysegtree.hpp
 template<class S, S (*op)(S, S), S (*e)(), class F, S (*mapping)(F, S), F (*composition)(F, F), F (*id)()>
-struct lazy_segtree {
-   private:
+struct lazy_segtree {   // ACL と同じ名前・同じ使い方
    int _n, size, log;
    vector<S> dat;
    vector<F> lz;
@@ -17,7 +16,6 @@ struct lazy_segtree {
    }
    int lower_bits(int x, int k) { return x & ((1 << k) - 1); }
 
-   public:
    lazy_segtree() : lazy_segtree(0) {}
    lazy_segtree(int n) : lazy_segtree(vector<S>(n, e())) {}
    lazy_segtree(const vector<S>& v) : _n(int(v.size())) {
@@ -91,8 +89,8 @@ struct lazy_segtree {
          if(lower_bits(r, i) > 0) update((r - 1) >> i);
       }
    }
-   // SegmentTree上の二分探索 (必要な場合)
-   // return r, f(op(a[l], ..., a[r-1])) == true
+   // ===== ここから下は木上の二分探索。要らなければ打たない =====
+   // f(op(a[l], ..., a[r-1])) == true となる最大の r
    template<bool (*g)(S)> int max_right(int l) {
       return max_right(l, [](S x) { return g(x); });
    }
@@ -120,7 +118,7 @@ struct lazy_segtree {
       } while((l & -l) != l);
       return _n;
    }
-   // return l, f(op(a[l], ..., a[r-1])) == true
+   // f(op(a[l], ..., a[r-1])) == true となる最小の l
    template<bool (*g)(S)> int min_left(int r) {
       return min_left(r, [](S x) { return g(x); });
    }

@@ -23,6 +23,10 @@ O="$R/src/template/hash_values.txt"
    cd "$R/src" || exit
    for f in $(find . -name '*.hpp' | sed 's|^\./||' | sort); do
       printf '%-45s %s\n' "$f" "$(H < "$f")"
+      # 「ここから下は」より上だけの版（二分探索を打たないとき用）
+      if grep -q '^ *// ===== ここから下は' "$f"; then
+         printf '%-45s %s\n' "$f (前半のみ)" "$(sed '/^ *\/\/ ===== ここから下は/,$d' "$f" | sed '$a\};' | H)"
+      fi
    done
 } > "$O"
 echo "$O を更新しました"

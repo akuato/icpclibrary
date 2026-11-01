@@ -21,7 +21,7 @@ auto sa=suffix_array(s);
 auto lcp=lcp_array(s,sa);
 vi id(n+1);
 rep(i,sa.size())id[sa[i]]=i;
-SegmentTree<S,op,e> seg(lcp);
+segtree<S,op,e> seg(lcp);
 vvm dp(n,vm(n));
 repi(l,1,n)repi(r,l+1,n){
 int len=seg.prod(min(id[l],id[r]),max(id[l],id[r]));
