@@ -19,11 +19,14 @@ struct RH {
       ull w = mul(x, p[ly]) + y;
       return w >= M ? w - M : w;
    }
-   RH(const string& s) : h(sz(s) + 1) {
+   RH() : h{0} {}
+   // string でも vi/vll でもよい。値は 0 以上 2^61-1 未満（負が混じるなら全体に下駄を履かせる）
+   // 0 を含む数列で、長さの違う区間どうしを比べるなら、全体に +1 しておくと安全
+   template<class T> RH(const T& s) : h{0} {
       ext(sz(s));
-      for(ll i = 0; i < sz(s); i++) {
-         h[i + 1] = mul(h[i], b) + s[i];
-         if(h[i + 1] >= M) h[i + 1] -= M;
+      for(auto c : s) {
+         ull w = mul(h.back(), b) + c;
+         h.push_back(w >= M ? w - M : w);
       }
    }
    ull get(ll l, ll r) {  // s[l,r)

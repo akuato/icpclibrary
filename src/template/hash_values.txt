@@ -56,7 +56,7 @@ string/KMP.hpp                                8f3c46
 string/lcp_array.hpp                          2c8f78
 string/Manacher.hpp                           5882fb
 string/palindrome.hpp                         c3ad5a
-string/rolling_hash.hpp                       33dd22
+string/rolling_hash.hpp                       830eaf
 string/suffix_array.hpp                       79d0c6
 string/z_algorithm.hpp                        146991
 template/template.hpp                         c48eb9
