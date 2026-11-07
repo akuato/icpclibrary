@@ -4,7 +4,8 @@
 
 // x座標が相異なるn+1点(x_i,y_i)を通るn次以下の多項式f(x)を返す
 // O(n^2)
-vector<mint> lagrange_interpolation(vector<mint> x, vector<mint> y) {
+vector<mint> lagrange_interpolation(vector<mint> x,
+                                    vector<mint> y) {
    const ll n = x.size() - 1;
    REP(i, n + 1) {
       mint t = 1;
@@ -41,7 +42,8 @@ vector<mint> lagrange_interpolation(vector<mint> x, vector<mint> y) {
    return ret;
 }
 
-mint lagrange_interpolationT(vector<mint> x, vector<mint> y, mint T) {
+mint lagrange_interpolationT(vector<mint> x, vector<mint> y,
+                             mint T) {
    const ll n = x.size() - 1;
    mint ret = 0;
    REP(i, n + 1) {

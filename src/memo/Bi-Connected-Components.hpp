@@ -11,7 +11,9 @@ template<typename G> struct BiConnectedComponents : LowLink<G> {
       used[idx] = true;
       for(auto& to : this->g[idx]) {
          if(to == par) continue;
-         if(!used[to] || this->ord[to] < this->ord[idx]) { tmp.emplace_back(minmax(idx, to)); }
+         if(!used[to] || this->ord[to] < this->ord[idx]) {
+            tmp.emplace_back(minmax(idx, to));
+         }
          if(!used[to]) {
             dfs(to, idx);
             if(this->low[to] >= this->ord[idx]) {
@@ -20,7 +22,10 @@ template<typename G> struct BiConnectedComponents : LowLink<G> {
                   auto e = tmp.back();
                   bc.back().emplace_back(e);
                   tmp.pop_back();
-                  if(e.first == min(idx, to) && e.second == max(idx, to)) { break; }
+                  if(e.first == min(idx, to)
+                     && e.second == max(idx, to)) {
+                     break;
+                  }
                }
             }
          }
@@ -41,7 +46,8 @@ template<int mod> struct ModInt {
 
    ModInt() : x(0) {}
 
-   ModInt(int64_t y) : x(y >= 0 ? y % mod : (mod - (-y) % mod) % mod) {}
+   ModInt(int64_t y)
+       : x(y >= 0 ? y % mod : (mod - (-y) % mod) % mod) {}
 
    ModInt& operator+=(const ModInt& p) {
       if((x += p.x) >= mod) x -= mod;
@@ -65,13 +71,21 @@ template<int mod> struct ModInt {
 
    ModInt operator-() const { return ModInt(-x); }
 
-   ModInt operator+(const ModInt& p) const { return ModInt(*this) += p; }
+   ModInt operator+(const ModInt& p) const {
+      return ModInt(*this) += p;
+   }
 
-   ModInt operator-(const ModInt& p) const { return ModInt(*this) -= p; }
+   ModInt operator-(const ModInt& p) const {
+      return ModInt(*this) -= p;
+   }
 
-   ModInt operator*(const ModInt& p) const { return ModInt(*this) *= p; }
+   ModInt operator*(const ModInt& p) const {
+      return ModInt(*this) *= p;
+   }
 
-   ModInt operator/(const ModInt& p) const { return ModInt(*this) /= p; }
+   ModInt operator/(const ModInt& p) const {
+      return ModInt(*this) /= p;
+   }
 
    bool operator==(const ModInt& p) const { return x == p.x; }
 
@@ -97,7 +111,9 @@ template<int mod> struct ModInt {
       return ret;
    }
 
-   friend ostream& operator<<(ostream& os, const ModInt& p) { return os << p.x; }
+   friend ostream& operator<<(ostream& os, const ModInt& p) {
+      return os << p.x;
+   }
 
    friend istream& operator>>(istream& is, ModInt& a) {
       int64_t t;
@@ -116,7 +132,8 @@ template<typename T> struct Combination {
       _fact[0] = _rfact[sz] = 1;
       for(int i = 1; i <= sz; i++) _fact[i] = _fact[i - 1] * i;
       _rfact[sz] /= _fact[sz];
-      for(int i = sz - 1; i >= 0; i--) _rfact[i] = _rfact[i + 1] * (i + 1);
+      for(int i = sz - 1; i >= 0; i--)
+         _rfact[i] = _rfact[i + 1] * (i + 1);
    }
 
    inline T fact(int k) const { return _fact[k]; }
@@ -175,7 +192,10 @@ int main() {
       } else if(vertex.size() == vs.size()) {
          modint add = 0;
          for(int i = 1; i <= vertex.size(); i++) {
-            if(vertex.size() % i == 0) { add += modint(K).pow(vertex.size() / i) * euler_phi(i); }
+            if(vertex.size() % i == 0) {
+               add += modint(K).pow(vertex.size() / i)
+                      * euler_phi(i);
+            }
          }
          add /= vertex.size();
          ret *= add;

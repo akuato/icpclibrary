@@ -5,11 +5,21 @@ template<typename G> struct HLD {
    int n;
    G& g;
    vector<int> sub, in, out, head, rev, par, d;
-   HLD(G& g) : n(si(g)), g(g), sub(n), in(n), out(n), head(n), rev(n), par(n), d(n) {}
+   HLD(G& g)
+       : n(si(g)),
+         g(g),
+         sub(n),
+         in(n),
+         out(n),
+         head(n),
+         rev(n),
+         par(n),
+         d(n) {}
    void dfs1(int x, int p) {
       par[x] = p;
       sub[x] = 1;
-      if(g[x].size() and g[x][0] == p) swap(g[x][0], g[x].back());
+      if(g[x].size() and g[x][0] == p)
+         swap(g[x][0], g[x].back());
       fore(e, g[x]) {
          if(e == p) continue;
          d[e] = d[x] + 1;
@@ -49,7 +59,8 @@ template<typename G> struct HLD {
       }
    }
    template<typename T, typename Q, typename F>
-   T query(int u, int v, const T& e, const Q& q, const F& f, bool edge = false) {
+   T query(int u, int v, const T& e, const Q& q, const F& f,
+           bool edge = false) {
       T l = e, r = e;
       for(;; v = par[head[v]]) {
          if(in[u] > in[v]) swap(u, v), swap(l, r);
@@ -58,7 +69,9 @@ template<typename G> struct HLD {
       }
       return f(f(q(in[u] + edge, in[v] + 1), l), r);
    }
-   int dist(int u, int v) { return d[u] + d[v] - 2 * d[lca(u, v)]; }
+   int dist(int u, int v) {
+      return d[u] + d[v] - 2 * d[lca(u, v)];
+   }
    int jump(int s, int t, int i) {
       if(!i) return s;
       int l = lca(s, t);

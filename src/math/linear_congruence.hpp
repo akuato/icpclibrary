@@ -20,7 +20,8 @@ P linear_congruence(vll& A, vll& B, vll& M) {
    rep(i, A.size()) {
       ll a = A[i] * m, b = B[i] - A[i] * x, d = gcd(M[i], a);
       if(b % d) return P(0, -1);
-      ll t = (b / d) * mod_inverse(a / d, M[i] / d) % (M[i] / d);
+      ll t = (b / d) * mod_inverse(a / d, M[i] / d)
+             % (M[i] / d);
       x = x + m * t;
       m *= M[i] / d;
    }

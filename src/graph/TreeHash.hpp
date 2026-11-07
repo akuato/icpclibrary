@@ -3,7 +3,9 @@ struct TreeHash {
    const vvi& g;
    vector<ull> h, rnd;
    vi ht;
-   mt19937_64 mt{(ull)chrono::steady_clock::now().time_since_epoch().count()};
+   mt19937_64 mt{(ull)chrono::steady_clock::now()
+                     .time_since_epoch()
+                     .count()};
    TreeHash(const vvi& g) : g(g), h(sz(g)), ht(sz(g)) {}
    ull operator()(vi& ng, int r) {
       int sv = ng[r];

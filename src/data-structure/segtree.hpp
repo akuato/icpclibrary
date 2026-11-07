@@ -1,9 +1,12 @@
 // https://github.com/YNUCPC/ynu-icpc-library/blob/main/src/datastructure/segtree.hpp
-// ACL と同じ名前・同じ使い方。segtree<S, op, e> seg(n) または seg(v)
+// ACL と同じ名前・同じ使い方
+// segtree<S, op, e> seg(n) または seg(v)
 template<class S, S (*op)(S, S), S (*e)()> struct segtree {
    int _n, size, log;
    vector<S> dat;
-   void update(int k) { dat[k] = op(dat[2 * k], dat[2 * k + 1]); }
+   void update(int k) {
+      dat[k] = op(dat[2 * k], dat[2 * k + 1]);
+   }
    segtree() : segtree(0) {}
    segtree(int n) : segtree(vector<S>(n, e())) {}
    segtree(const vector<S>& v) : _n(int(v.size())) {
@@ -34,7 +37,7 @@ template<class S, S (*op)(S, S), S (*e)()> struct segtree {
    }
    S all_prod() const { return dat[1]; }
 
-   // ===== ここから下は木上の二分探索。要らなければ打たない =====
+   // ===== ここから下は木上の二分探索。要らなければ打たない
    // f(op(a[l], ..., a[r-1])) == true となる最大の r
    template<bool (*f)(S)> int max_right(int l) const {
       return max_right(l, [](S x) { return f(x); });

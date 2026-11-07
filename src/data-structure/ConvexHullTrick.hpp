@@ -1,5 +1,6 @@
 // https://ei1333.github.io/library/structure/convex-hull-trick/convex-hull-trick-add-monotone.hpp.html
-template<typename T, bool isMin> struct ConvexHullTrickAddMonotone {
+template<typename T, bool isMin>
+struct ConvexHullTrickAddMonotone {
 #define F first
 #define S second
    using P = pair<T, T>;
@@ -11,17 +12,27 @@ template<typename T, bool isMin> struct ConvexHullTrickAddMonotone {
 
    void clear() { H.clear(); }
 
-   static constexpr int sgn(T x) { return x == 0 ? 0 : (x < 0 ? -1 : 1); }
+   static constexpr int sgn(T x) {
+      return x == 0 ? 0 : (x < 0 ? -1 : 1);
+   }
 
-   static constexpr T floor_div(T n, T d) { return n / d - ((n ^ d) < 0 and n % d != 0); }
+   static constexpr T floor_div(T n, T d) {
+      return n / d - ((n ^ d) < 0 and n % d != 0);
+   }
 
-   static constexpr bool check(const P& a, const P& b, const P& c) {
-      if(b.S == a.S || c.S == b.S) return sgn(b.F - a.F) * sgn(c.S - b.S) >= sgn(c.F - b.F) * sgn(b.S - a.S);
+   static constexpr bool check(const P& a, const P& b,
+                               const P& c) {
+      if(b.S == a.S || c.S == b.S)
+         return sgn(b.F - a.F) * sgn(c.S - b.S)
+                >= sgn(c.F - b.F) * sgn(b.S - a.S);
       // return (b.F-a.F)*(c.S-b.S) >= (b.S-a.S)*(c.F-b.F);
       if constexpr(is_integral<T>::value) {
-         return floor_div(b.S - a.S, a.F - b.F) >= floor_div(c.S - b.S, b.F - c.F);
+         return floor_div(b.S - a.S, a.F - b.F)
+                >= floor_div(c.S - b.S, b.F - c.F);
       } else {
-         return (b.F - a.F) * sgn(c.S - b.S) / abs(b.S - a.S) >= (c.F - b.F) * sgn(b.S - a.S) / abs(c.S - b.S);
+         return (b.F - a.F) * sgn(c.S - b.S) / abs(b.S - a.S)
+                >= (c.F - b.F) * sgn(b.S - a.S)
+                       / abs(c.S - b.S);
       }
    }
 
@@ -37,7 +48,8 @@ template<typename T, bool isMin> struct ConvexHullTrickAddMonotone {
             if(H.front().S <= b) return;
             H.pop_front();
          }
-         while(H.size() >= 2 && check(line, H.front(), H[1])) H.pop_front();
+         while(H.size() >= 2 && check(line, H.front(), H[1]))
+            H.pop_front();
          H.emplace_front(line);
       } else {
          assert(a <= H.back().F);
@@ -45,12 +57,16 @@ template<typename T, bool isMin> struct ConvexHullTrickAddMonotone {
             if(H.back().S <= b) return;
             H.pop_back();
          }
-         while(H.size() >= 2 && check(H[H.size() - 2], H.back(), line)) H.pop_back();
+         while(H.size() >= 2
+               && check(H[H.size() - 2], H.back(), line))
+            H.pop_back();
          H.emplace_back(line);
       }
    }
 
-   static constexpr T get_y(const P& a, const T& x) { return a.F * x + a.S; }
+   static constexpr T get_y(const P& a, const T& x) {
+      return a.F * x + a.S;
+   }
 
    T query(T x) const {
       assert(!empty());
@@ -66,14 +82,18 @@ template<typename T, bool isMin> struct ConvexHullTrickAddMonotone {
 
    T query_monotone_inc(T x) {
       assert(!empty());
-      while(H.size() >= 2 && get_y(H.front(), x) >= get_y(H[1], x)) H.pop_front();
+      while(H.size() >= 2
+            && get_y(H.front(), x) >= get_y(H[1], x))
+         H.pop_front();
       if(isMin) return get_y(H.front(), x);
       return -get_y(H.front(), x);
    }
 
    T query_monotone_dec(T x) {
       assert(!empty());
-      while(H.size() >= 2 && get_y(H.back(), x) >= get_y(H[H.size() - 2], x)) H.pop_back();
+      while(H.size() >= 2
+            && get_y(H.back(), x) >= get_y(H[H.size() - 2], x))
+         H.pop_back();
       if(isMin) return get_y(H.back(), x);
       return -get_y(H.back(), x);
    }

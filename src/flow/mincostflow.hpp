@@ -27,13 +27,16 @@ struct mcf_graph {
             rep(i, sz(g[v])) {
                auto& e = g[v][i];
                ll nd = dis[v] + e.cost + h[v] - h[e.to];
-               if(e.cap > 0 && dis[e.to] > nd) dis[e.to] = nd, pv[e.to] = v, pe[e.to] = i, q.push({nd, e.to});
+               if(e.cap > 0 && dis[e.to] > nd)
+                  dis[e.to] = nd, pv[e.to] = v, pe[e.to] = i,
+                  q.push({nd, e.to});
             }
          }
          if(dis[t] == inf) return -1;
          rep(i, V) h[i] += dis[i];
          ll d = f;
-         for(ll v = t; v != s; v = pv[v]) chmin(d, g[pv[v]][pe[v]].cap);
+         for(ll v = t; v != s; v = pv[v])
+            chmin(d, g[pv[v]][pe[v]].cap);
          f -= d, res += d * h[t];
          for(ll v = t; v != s; v = pv[v]) {
             auto& e = g[pv[v]][pe[v]];

@@ -9,7 +9,9 @@ auto f = [&](int s) {
       q.pop();
       if(dist[v] < d) continue;
       for(auto u : g[v]) {
-         if(chmin(dist[u.to], dist[v] + u.cost)) { q.push(P(dist[u.to], u.to)); }
+         if(chmin(dist[u.to], dist[v] + u.cost)) {
+            q.push(P(dist[u.to], u.to));
+         }
       }
    }
 };

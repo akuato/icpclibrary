@@ -6,7 +6,8 @@
 auto SA(string s) {
    ll n = si(s) + 1, lim = 256;
    // assert(lim > ranges::max(s));
-   vector<ll> sa(n), lcp(n), x(all(s) + 1), y(n), ws(max(n, lim)), rk(n);
+   vector<ll> sa(n), lcp(n), x(all(s) + 1), y(n),
+       ws(max(n, lim)), rk(n);
    iota(all(sa), 0);
    for(ll j = 0, p = 0; p < n; j = max(1LL, j * 2), lim = p) {
       p = j;
@@ -21,7 +22,8 @@ auto SA(string s) {
       x[sa[0]] = 0;
       repi(i, 1, n) {
          ll a = sa[i - 1], b = sa[i];
-         x[b] = (y[a] == y[b] && y[a + j] == y[b + j]) ? p - 1 : p++;
+         x[b] = (y[a] == y[b] && y[a + j] == y[b + j]) ? p - 1
+                                                       : p++;
       }
    }
    repi(i, 1, n) rk[sa[i]] = i;

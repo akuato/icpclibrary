@@ -7,10 +7,11 @@ vector<int> l(q), r(q);  // クエリの[l,r)
 int sq = max(1, int(n / sqrt(q)));
 vector<int> qi(q);
 for(int i = 0; i < q; ++i) qi[i] = i;
-sort(qi.begin(), qi.end(), [&](int i, int j) {  // クエリの順番をpair(l/sq,r)でソート
-   if(l[i] / sq != l[j] / sq) return l[i] < l[j];
-   return r[i] < r[j];
-});
+sort(qi.begin(), qi.end(),
+     [&](int i, int j) {  // クエリの順番をpair(l/sq,r)でソート
+        if(l[i] / sq != l[j] / sq) return l[i] < l[j];
+        return r[i] < r[j];
+     });
 
 // クエリの処理
 // add(i)は追加操作、del(i)は削除操作

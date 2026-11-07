@@ -8,7 +8,9 @@ struct FastSet {
       do a.emplace_back(n_ = (n_ + B - 1) / B);
       while(n_ > 1);
    }
-   // bool operator[](ll i) const { return a[0][i / B] >> (i % B) & 1; }
+   // bool operator[](ll i) const {
+   //    return a[0][i / B] >> (i % B) & 1;
+   // }
    void set(ll i) {
       for(auto& v : a) {
          v[i / B] |= 1ULL << (i % B);

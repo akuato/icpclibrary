@@ -4,7 +4,13 @@ template<typename T> class dynamic_segtree {
       T val, lazy;
       int st_size;
       node *par, *left, *right;
-      node() : val(id2), lazy(id1), st_size(0), par(nullptr), left(nullptr), right(nullptr) {}
+      node()
+          : val(id2),
+            lazy(id1),
+            st_size(0),
+            par(nullptr),
+            left(nullptr),
+            right(nullptr) {}
    };
    void opr1(T& arg1, T arg2) { arg1 += arg2; }
    T opr2(T arg1, T arg2) { return arg1 + arg2; }
@@ -23,8 +29,14 @@ template<typename T> class dynamic_segtree {
       if(k->lazy != id1) {
          opr1(k->val, k->lazy);
          if(r - l > 1) {
-            if(k->left) { opr1(k->left->lazy, k->lazy / k->st_size * k->left->st_size); }
-            if(k->right) { opr1(k->right->lazy, k->lazy / k->st_size * k->right->st_size); }
+            if(k->left) {
+               opr1(k->left->lazy,
+                    k->lazy / k->st_size * k->left->st_size);
+            }
+            if(k->right) {
+               opr1(k->right->lazy,
+                    k->lazy / k->st_size * k->right->st_size);
+            }
          }
          k->lazy = id1;
       }
@@ -32,8 +44,10 @@ template<typename T> class dynamic_segtree {
 
    public:
    dynamic_segtree() : nw_size(0) { root = alloc(); }
-   // a 番目に x を追加(すでに a 番目に値が存在すればそれに x を足す)
-   void insert(int a, T x, node* k = root, int l = 0, int r = MAX_SIZE) {
+   // a 番目に x を追加
+   // (すでに a 番目に値が存在すればそれに x を足す)
+   void insert(int a, T x, node* k = root, int l = 0,
+               int r = MAX_SIZE) {
       eval(k, l, r);
       k->st_size++;
       k->val = opr2(k->val, x);
@@ -52,7 +66,8 @@ template<typename T> class dynamic_segtree {
          insert(a, x, k->right, (l + r) / 2, r);
       }
    }
-   void range(int a, int b, const T x, node* k = root, int l = 0, int r = MAX_SIZE) {
+   void range(int a, int b, const T x, node* k = root,
+              int l = 0, int r = MAX_SIZE) {
       eval(k, l, r);
       if(b <= l || r <= a) return;
       if(a <= l && r <= b) {
@@ -70,15 +85,20 @@ template<typename T> class dynamic_segtree {
          k->val = opr2(k->val, k->right->val);
       }
    }
-   T query(int a, int b, node* k = root, int l = 0, int r = MAX_SIZE) {
+   T query(int a, int b, node* k = root, int l = 0,
+           int r = MAX_SIZE) {
       eval(k, l, r);
       if(b <= l || r <= a) { return id2; }
       if(a <= l && r <= b) { return k->val; }
       T vl = id2, vr = id2;
       if(k->left) { vl = query(a, b, k->left, l, (l + r) / 2); }
-      if(k->right) { vr = query(a, b, k->right, (l + r) / 2, r); }
+      if(k->right) {
+         vr = query(a, b, k->right, (l + r) / 2, r);
+      }
       return opr2(vl, vr);
    }
 };
-template<typename T> class dynamic_segtree<T>::node* dynamic_segtree<T>::root;
-template<typename T> class dynamic_segtree<T>::node dynamic_segtree<T>::pool[POOL_SIZE];
+template<typename T>
+class dynamic_segtree<T>::node* dynamic_segtree<T>::root;
+template<typename T> class dynamic_segtree<T>::node
+    dynamic_segtree<T>::pool[POOL_SIZE];

@@ -6,8 +6,12 @@ using ll = long long;
 #define repi(i, a, b) for(ll i = (a); i < (b); i++)
 #define all(x) (x).begin(), (x).end()
 #define arr(x) (x).rbegin(), (x).rend()
-template<typename T, typename S> bool chmin(T& a, const S& b) { return a > b ? a = b, 1 : 0; }
-template<typename T, typename S> bool chmax(T& a, const S& b) { return a < b ? a = b, 1 : 0; }
+template<typename T, typename S> bool chmin(T& a, const S& b) {
+   return a > b ? a = b, 1 : 0;
+}
+template<typename T, typename S> bool chmax(T& a, const S& b) {
+   return a < b ? a = b, 1 : 0;
+}
 using vi = vector<int>;
 using P = pair<ll, ll>;
 using vvi = vector<vi>;

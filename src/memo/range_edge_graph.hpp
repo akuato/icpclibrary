@@ -15,7 +15,8 @@ template<typename W> struct range_edge_graph {
          g[cl + 2 * n].push_back({i + 2 * n, 0});
          g[cr + 2 * n].push_back({i + 2 * n, 0});
       }
-      for(int i = n; i < 2 * n; ++i) g[i].push_back({i + 2 * n, 0});
+      for(int i = n; i < 2 * n; ++i)
+         g[i].push_back({i + 2 * n, 0});
    }
 
    // from [l1, r1) to [l2, r2)

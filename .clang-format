@@ -12,9 +12,14 @@ AllowShortLambdasOnASingleLine: All
 AllowShortLoopsOnASingleLine: true
 AlwaysBreakTemplateDeclarations: No
 BreakBeforeBinaryOperators: NonAssignment
-ColumnLimit: 120
+ColumnLimit: 64
 IndentWidth: 3
 IndentWrappedFunctionNames: true
 SpaceAfterTemplateKeyword: false
 SpaceBeforeParens: Never
 SortIncludes: Never
+ReflowComments: false
+BinPackParameters: true
+BinPackArguments: true
+PenaltyBreakAssignment: 1000
+PenaltyBreakBeforeFirstCallParameter: 1000

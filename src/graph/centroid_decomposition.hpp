@@ -4,7 +4,8 @@ template<typename G> struct CentroidDecomposition {
    vector<vector<int> > belong;
    vector<bool> v;
 
-   CentroidDecomposition(const G& g) : g(g), sub(g.size()), v(g.size()), belong(g.size()) {}
+   CentroidDecomposition(const G& g)
+       : g(g), sub(g.size()), v(g.size()), belong(g.size()) {}
 
    inline int build_dfs(int idx, int par) {
       sub[idx] = 1;
@@ -32,7 +33,8 @@ template<typename G> struct CentroidDecomposition {
    }
 
    inline int build(G& t, int idx) {
-      int centroid = search_centroid(idx, -1, build_dfs(idx, -1) / 2);
+      int centroid = search_centroid(idx, -1,
+                                     build_dfs(idx, -1) / 2);
       v[centroid] = true;
       belong_dfs(centroid, -1, centroid);
       for(auto& to : g[centroid]) {

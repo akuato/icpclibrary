@@ -1,7 +1,9 @@
-template<class Int = long long> Int find_smallest_primitive_root(Int p) {
+template<class Int = long long>
+Int find_smallest_primitive_root(Int p) {
    std::vector<Int> fac;
    Int v = p - 1;
-   for(Int pp = 2; pp * pp <= v; pp++) {  // prime factorization of (p - 1)
+   for(Int pp = 2; pp * pp <= v;
+       pp++) {  // prime factorization of (p - 1)
       int e = 0;
       while(v % pp == 0) e++, v /= pp;
       if(e) fac.push_back(pp);

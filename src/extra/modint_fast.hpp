@@ -15,12 +15,16 @@ struct mm {
       if(a.x >= mod) a.x += mod;
       return a;
    }
-   friend mm operator*(mm a, mm b) { return (uint64_t)a.x * b.x; }
+   friend mm operator*(mm a, mm b) {
+      return (uint64_t)a.x * b.x;
+   }
    friend mm operator/(mm a, mm b) { return a * b.inv(); }
    friend mm& operator+=(mm& a, mm b) { return a = a + b; }
    friend mm& operator-=(mm& a, mm b) { return a = a - b; }
    friend mm& operator*=(mm& a, mm b) { return a = a * b; }
-   friend mm& operator/=(mm& a, mm b) { return a = a * b.inv(); }
+   friend mm& operator/=(mm& a, mm b) {
+      return a = a * b.inv();
+   }
    mm inv() const { return pow(mod - 2); }
    mm pow(ll b) const {
       mm a = *this, c = 1;

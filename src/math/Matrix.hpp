@@ -3,7 +3,8 @@ template<typename T> struct Matrix {
    int h, w;
    vector<vector<T>> d;
    Matrix() {}
-   Matrix(int h, int w, T val = 0) : h(h), w(w), d(h, vector<T>(w, val)) {}
+   Matrix(int h, int w, T val = 0)
+       : h(h), w(w), d(h, vector<T>(w, val)) {}
    Matrix& unit() {
       // assert(h == w);
       rep(i, h) d[i][i] = 1;
@@ -14,7 +15,9 @@ template<typename T> struct Matrix {
    Matrix operator*(const Matrix& a) const {
       //   assert(w == a.h);
       Matrix r(h, a.w);
-      rep(i, h) rep(k, w) rep(j, a.w) { r[i][j] += d[i][k] * a[k][j]; }
+      rep(i, h) rep(k, w) rep(j, a.w) {
+         r[i][j] += d[i][k] * a[k][j];
+      }
       return r;
    }
    Matrix pow(long long t) const {

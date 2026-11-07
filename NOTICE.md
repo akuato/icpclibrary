@@ -15,10 +15,22 @@ AtCoder の生成AI対策ルール（https://info.atcoder.jp/entry/llm-rules-ja 
 | ファイル | 備考 |
 | --- | --- |
 | `src/graph/TreeHash.hpp` | 根付き木のハッシュ |
-| `src/data-structure/LiChao.hpp` | Li Chao tree |
+| `src/graph/namori.hpp` | 無向なもり（閉路検出・各木の根・距離） |
+| `src/data-structure/LiChao.hpp` | Li Chao tree（x の候補を渡す版） |
+| `src/data-structure/LiChaoDyn.hpp` | Li Chao tree（動的、範囲のみ指定） |
+| `src/data-structure/cht.hpp` | CHT（傾き単調・x 任意）。下記 ConvexHullTrick.hpp を置き換え |
+| `src/data-structure/cht_monotone.hpp` | CHT（傾き単調・x 単調）。同上 |
+| `src/data-structure/hash_map.hpp` | 整数キーのハッシュマップ |
 | `src/data-structure/fenwick_tree.hpp` | `lower_bound` を追加 |
 | `src/template/hash.sh` | ハッシュ確認用スクリプト |
 | `src/template/compile.sh` | コンパイル用スクリプト |
+| `src/template/commands.sh` | 本番で打つコマンド集 |
+| `src/template/stress_test.sh` | ストレステスト |
+| `src/template/gen.cpp` | 乱数入力生成 |
+| `src/memo/memsize.cpp` | メモリ見積り |
+| `src/memo/input.md` | 入力の受け取り方のメモ |
+| `src/memo/memory.md` | メモリ・速度の実測メモ |
+| `src/memo/tips.md` | 考察 tips |
 
 ### 既存コードを書き換えたもの
 
@@ -26,6 +38,8 @@ AtCoder の生成AI対策ルール（https://info.atcoder.jp/entry/llm-rules-ja 
 | --- | --- | --- |
 | `src/flow/maxflow.hpp` | 辺の表現を `vector<vector<vector<ll>>>` から `struct` に変更 | YNUCPC/ynu-icpc-library (MIT) |
 | `src/flow/mincostflow.hpp` | 同上 | YNUCPC/ynu-icpc-library (MIT) |
+| `src/string/rolling_hash.hpp` | `ext` を書き換え、`sub`（mod 2^61-1 の引き算）を追加 | YNUCPC/ynu-icpc-library (MIT) |
+| `.clang-format` | `ColumnLimit` を PDF の幅に合わせ、折り返しの罰則を追加 | — |
 
 ### 機械的な修正のみを行ったもの
 
@@ -52,9 +66,8 @@ https://github.com/YNUCPC/ynu-icpc-library
 - `src/data-structure/segtree.hpp`
 - `src/flow/maxflow.hpp` （書き換え済み。上記 1 を参照）
 - `src/flow/mincostflow.hpp` （同上）
-- `src/graph/lca.hpp`
 - `src/string/lcp_array.hpp`
-- `src/string/rolling_hash.hpp`
+- `src/string/rolling_hash.hpp` （書き換え済み。上記 1 を参照）
 - `src/string/suffix_array.hpp`
 - `src/string/z_algorithm.hpp`
 
@@ -64,7 +77,8 @@ https://github.com/ei1333/library
 
 パブリックドメイン相当のため、表示の義務はありません。
 
-- `src/data-structure/ConvexHullTrick.hpp`
+- （`src/data-structure/ConvexHullTrick.hpp` は削除し、`cht.hpp` /
+  `cht_monotone.hpp` に置き換えました。上記 1 を参照）
 
 ### KentaroMatsushita/icpc_library — Unlicense
 
@@ -72,13 +86,13 @@ https://github.com/KentaroMatsushita/icpc_library
 
 パブリックドメイン相当のため、表示の義務はありません。
 
-- `src/data-structure/ConvexHullTrick2.hpp`
 - `src/flow/bipartite-matching.hpp`
 - `src/graph/hld.hpp`
 - `src/graph/lowlink.hpp`
 - `src/graph/scc.hpp`
 - `src/math/xorConvolution.hpp`
 - `src/modint/convolution.hpp`
+- `src/template/template.hpp` 内のマクロ群
 
 ### その他
 

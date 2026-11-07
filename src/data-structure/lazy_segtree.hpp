@@ -1,10 +1,13 @@
 // https://github.com/YNUCPC/ynu-icpc-library/blob/main/src/datastructure/lazysegtree.hpp
-template<class S, S (*op)(S, S), S (*e)(), class F, S (*mapping)(F, S), F (*composition)(F, F), F (*id)()>
+template<class S, S (*op)(S, S), S (*e)(), class F,
+         S (*mapping)(F, S), F (*composition)(F, F), F (*id)()>
 struct lazy_segtree {  // ACL と同じ名前・同じ使い方
    int _n, size, log;
    vector<S> dat;
    vector<F> lz;
-   void update(int k) { dat[k] = op(dat[2 * k], dat[2 * k + 1]); }
+   void update(int k) {
+      dat[k] = op(dat[2 * k], dat[2 * k + 1]);
+   }
    void all_apply(int k, F f) {
       dat[k] = mapping(f, dat[k]);
       if(k < size) lz[k] = composition(f, lz[k]);
@@ -89,7 +92,7 @@ struct lazy_segtree {  // ACL と同じ名前・同じ使い方
          if(lower_bits(r, i) > 0) update((r - 1) >> i);
       }
    }
-   // ===== ここから下は木上の二分探索。要らなければ打たない =====
+   // ===== ここから下は木上の二分探索。要らなければ打たない
    // f(op(a[l], ..., a[r-1])) == true となる最大の r
    template<bool (*g)(S)> int max_right(int l) {
       return max_right(l, [](S x) { return g(x); });

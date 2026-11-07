@@ -9,7 +9,9 @@ struct mf_graph {
    vector<vector<edge>> g;
    vll dis, nxt;
    mf_graph(ll v) : V(v), g(v) {}
-   ll add_edge(ll a, ll b, ll cap) {  // 返り値は辺のindex。あとで g[a][id].cap を変更できる
+   // 返り値は辺のindex
+   // あとで g[a][id].cap を変更できる
+   ll add_edge(ll a, ll b, ll cap) {
       g[a].push_back({(int)b, cap, (int)sz(g[b])});
       g[b].push_back({(int)a, 0, (int)sz(g[a]) - 1});
       return sz(g[a]) - 1;
@@ -22,7 +24,8 @@ struct mf_graph {
          ll v = q.front();
          q.pop();
          for(auto& e : g[v])
-            if(e.cap > 0 && dis[e.to] < 0) dis[e.to] = dis[v] + 1, q.push(e.to);
+            if(e.cap > 0 && dis[e.to] < 0)
+               dis[e.to] = dis[v] + 1, q.push(e.to);
       }
    }
    ll dfs(ll v, ll t, ll f) {
