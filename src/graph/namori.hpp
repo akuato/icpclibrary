@@ -29,8 +29,14 @@ template<typename G> struct Namori {
    vi oncyc, cid, idx, root, dep, par;
    vector<vi> cyc;
    Namori(const G& g_)
-       : n(si(g_)), g(g_), oncyc(n, 1), cid(n, -1), idx(n, -1),
-         root(n, -1), dep(n), par(n, -1) {
+       : n(si(g_)),
+         g(g_),
+         oncyc(n, 1),
+         cid(n, -1),
+         idx(n, -1),
+         root(n, -1),
+         dep(n),
+         par(n, -1) {
       vi d(n), st;
       rep(v, n) d[v] = si(g[v]);
       rep(v, n) if(d[v] <= 1) oncyc[v] = 0, st.eb(v);

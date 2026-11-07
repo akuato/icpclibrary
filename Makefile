@@ -26,6 +26,7 @@ notebook.pdf: build/base.css build/notebook.css build/notebook.html
 
 build/notebook.html: build/build.js $(wildcard src/*/* src/*/*/*) .clang-format
 	clang-format -i $(wildcard src/*/*.hpp src/*/*/*.hpp)
+	sh src/template/hash.sh --all
 	node build/build.js
 
 build/notebook.css: build/build.js

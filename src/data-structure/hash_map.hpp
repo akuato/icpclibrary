@@ -24,8 +24,9 @@ template<class V> struct HashMap {
    vector<char> u;
    ll n = 0;
    ull msk;
-   static inline ull R =
-       chrono::steady_clock::now().time_since_epoch().count();
+   static inline ull R = chrono::steady_clock::now()
+                             .time_since_epoch()
+                             .count();
    HashMap(ll cap = 16) {
       ll s = 1;
       while(s < cap * 2) s <<= 1;

@@ -34,7 +34,9 @@ O="$R/src/template/hash_values.txt"
       # （二分探索を打たないとき用）
       M='^ *// ===== ここから下は'
       if grep -q "$M" "$f"; then
-         h=$(sed "/$M/,\$d" "$f" | sed '$a\};' | H)
+         # sed だと // が区切りとぶつかるので awk で切る
+         h=$({ awk -v m="$M" '$0 ~ m { exit } { print }' "$f"
+              echo '};'; } | H)
          printf '%-45s %s\n' "$f (前半のみ)" "$h"
       fi
    done
