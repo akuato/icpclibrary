@@ -1,5 +1,5 @@
 // https://github.com/YNUCPC/ynu-icpc-library/blob/main/src/string/z_algorithm.hpp
-vector<int> z_algorithm(string& s) {
+vector<int> z_algorithm(const string& s) {
    int n = int(s.size());
    vector<int> z(n);
    z[0] = n;

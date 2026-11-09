@@ -1,5 +1,6 @@
 #include "test/template.hpp"
 #include "src/string/suffix_array.hpp"
+#include "src/string/lcp_array.hpp"
 // #include "atcoder/string"
 
 mt19937 rnd;
@@ -10,7 +11,8 @@ int main() {
    rep(i, 0, N) S[i] = rnd() % 26 + 'A';
    {
       auto s = system_clock::now();
-      auto [sa, lcp] = SA(S);
+      auto sa = suffix_array(S);
+      auto lcp = lcp_array(S, sa);
       cout << "my Suffix Array: " << duration_cast<milliseconds>(system_clock::now() - s).count() << " ms" << endl;
    }
    {

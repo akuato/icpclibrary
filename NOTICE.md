@@ -39,6 +39,9 @@ AtCoder の生成AI対策ルール（https://info.atcoder.jp/entry/llm-rules-ja 
 | `src/flow/maxflow.hpp` | 辺の表現を `vector<vector<vector<ll>>>` から `struct` に変更 | YNUCPC/ynu-icpc-library (MIT) |
 | `src/flow/mincostflow.hpp` | 同上 | YNUCPC/ynu-icpc-library (MIT) |
 | `src/string/rolling_hash.hpp` | `ext` を書き換え、`sub`（mod 2^61-1 の引き算）を追加 | YNUCPC/ynu-icpc-library (MIT) |
+| `src/string/suffix_array.hpp` | `SA` を ACL 互換の `suffix_array` に変更。lcp のずれと非ASCIIでの UB を修正 | kactl を参考に実装 |
+| `src/string/lcp_array.hpp` | 戻り値の長さを ACL と同じ `n-1` に修正 | YNUCPC/ynu-icpc-library (MIT) |
+| `src/string/z_algorithm.hpp` | 引数を `const string&` に | YNUCPC/ynu-icpc-library (MIT) |
 | `.clang-format` | `ColumnLimit` を PDF の幅に合わせ、折り返しの罰則を追加 | — |
 
 ### 機械的な修正のみを行ったもの

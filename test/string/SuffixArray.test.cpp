@@ -8,6 +8,6 @@ int main() {
    string S;
    cin >> S;
    const ll N = sz(S);
-   auto [sa, lcp] = SA(S);
+   auto sa = suffix_array(S);
    rep(i, 0, N) cout << sa[i] << " \n"[i + 1 == N];
 }
