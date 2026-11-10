@@ -19,9 +19,10 @@ struct mcf_graph {
    vector<vector<edge>> g;
    vll h, dis, pv, pe;
    mcf_graph(ll v) : V(v), g(v), h(v), dis(v), pv(v), pe(v) {}
-   void add_edge(ll a, ll b, ll cap, ll cost) {
+   ll add_edge(ll a, ll b, ll cap, ll cost) {
       g[a].push_back({(int)b, cap, cost, (int)sz(g[b])});
       g[b].push_back({(int)a, 0, -cost, (int)sz(g[a]) - 1});
+      return sz(g[a]) - 1;  // g[a] 内の番号
    }
    P flow(ll s, ll t, ll lim = inf) {  // {流せた量, 費用}
       ll fl = 0, res = 0;
