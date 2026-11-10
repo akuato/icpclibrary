@@ -3,21 +3,23 @@
 //
 // 使い方
 //   LowerBound g(n);
-//   g.add(u, v, lo, hi);     lo <= 流量 <= hi
-//   ll f = g.max_flow(s, t); 下限を満たす最大流。無理なら -1
-//   ll f = g.min_flow(s, t); 下限を満たす最小流。無理なら -1
-//   bool ok = g.circulation();  s,t 無しで成立するか
-//   g.val(i);                i 番目に足した辺の流量
+//   g.add(u, v, lo, hi);      lo <= 流量 <= hi
+//   ---- 辺を全部足してから、下の1つだけを呼ぶ ----
+//   bool ok = g.feasible();   s,t を決めず、全頂点で保存則を
+//                             満たす流れがあるか
+//   ll f = g.max_flow(s, t);  下限を満たす最大流。無理なら -1
+//   ll f = g.min_flow(s, t);  下限を満たす最小流。無理なら -1
+//   ---- そのあと ----
+//   g.val(i);                 i 番目に足した辺の流量
 //
-// max_flow / min_flow は s に入る辺・t から出る辺が無い
-// 素直なネットワークを前提にしている。t->s 向きの辺を
-// 自分で足すと答えが負になりうる
+// 仕組み: 辺 (u,v,lo,hi) を容量 hi-lo にして、下限ぶんの lo を
+// 「v に湧き出し、u に吸い込み」として超頂点に預ける。預けた量を
+// 全部流し切れたら、下限を満たせている
 //
-// 仕組み: 辺 (u,v,lo,hi) を容量 hi-lo にして、下限ぶんの
-// lo を「v に湧き出し、u に吸い込み」として超頂点に預ける。
-// 預けた量を全部流せたら下限を満たせている
+// max_flow / min_flow は s に入る辺・t から出る辺が無い素直な
+// ネットワークを前提にしている
 struct LowerBound {
-   ll n, S, T, need = 0;
+   ll n, S, T;
    mf_graph g;
    vll d, from, id, low;
    LowerBound(ll n)
@@ -31,28 +33,22 @@ struct LowerBound {
       auto& e = g.g[from[i]][id[i]];
       return low[i] + g.g[e.to][e.rev].cap;
    }
-   bool ok() {  // 超頂点を繋いで、預けた量を流し切れるか
+   bool feasible() {  // 超頂点を繋ぎ、預けた量を流し切れるか
+      ll need = 0;
       rep(v, n + 2) {
          if(d[v] > 0) g.add_edge(S, v, d[v]), need += d[v];
          if(d[v] < 0) g.add_edge(v, T, -d[v]);
       }
       return g.flow(S, T) == need;
    }
-   bool circulation() { return ok(); }
-   ll max_flow(ll s, ll t) {
-      ll i = g.add_edge(t, s, inf);
-      if(!ok()) return -1;
+   ll st(ll s, ll t, bool mx) {
+      ll i = g.add_edge(t, s, inf);  // 先に閉じる辺を張る
+      if(!feasible()) return -1;
       auto& e = g.g[t][i];
       ll f = g.g[s][e.rev].cap;  // t->s に流れた量
-      e.cap = 0, g.g[s][e.rev].cap = 0;
-      return f + g.flow(s, t);
+      e.cap = 0, g.g[s][e.rev].cap = 0;  // その辺を外す
+      return mx ? f + g.flow(s, t) : f - g.flow(t, s);
    }
-   ll min_flow(ll s, ll t) {
-      ll i = g.add_edge(t, s, inf);
-      if(!ok()) return -1;
-      auto& e = g.g[t][i];
-      ll f = g.g[s][e.rev].cap;
-      e.cap = 0, g.g[s][e.rev].cap = 0;
-      return f - g.flow(t, s);
-   }
+   ll max_flow(ll s, ll t) { return st(s, t, true); }
+   ll min_flow(ll s, ll t) { return st(s, t, false); }
 };
