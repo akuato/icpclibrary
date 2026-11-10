@@ -1,4 +1,14 @@
 // https://github.com/KentaroMatsushita/icpc_library/blob/main/src/flow/bipartite-matching.hpp
+// 二部マッチング Hopcroft-Karp
+//
+// 使い方
+//   Bimatch bm(nl, nr);   左の頂点数、右の頂点数
+//   bm.add(u, v);         左 u と右 v を結ぶ（0-indexed）
+//   int m = bm.match();   最大マッチングの本数
+//   bm.mc[v]              右 v の相手の左頂点。-1 なら未マッチ
+//
+// 左右で番号空間が別なので、元の番号をそのまま渡さないこと
+// O(E √V)
 #define eb emplace_back
 #define si(a) (int)(size(a))
 #define fore(e, v) for(auto&& e : v)

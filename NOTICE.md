@@ -36,8 +36,9 @@ AtCoder の生成AI対策ルール（https://info.atcoder.jp/entry/llm-rules-ja 
 
 | ファイル | 書き換えの内容 | 元の出典 |
 | --- | --- | --- |
-| `src/flow/maxflow.hpp` | 辺の表現を `vector<vector<vector<ll>>>` から `struct` に変更 | YNUCPC/ynu-icpc-library (MIT) |
-| `src/flow/mincostflow.hpp` | 同上 | YNUCPC/ynu-icpc-library (MIT) |
+| `src/flow/maxflow.hpp` | 辺の表現を `vector<vector<vector<ll>>>` から `struct` に変更。`min_cut` と流量上限を追加 | YNUCPC/ynu-icpc-library (MIT) |
+| `src/flow/mincostflow.hpp` | 同上。到達不能な頂点のポテンシャルが溢れるのを修正、戻り値を {流量, 費用} に、流量上限を追加 | YNUCPC/ynu-icpc-library (MIT) |
+| `src/flow/bipartite-matching.hpp` | 使い方と計算量のコメントを追加 | KentaroMatsushita/icpc_library (Unlicense) |
 | `src/string/rolling_hash.hpp` | `ext` を書き換え、`sub`（mod 2^61-1 の引き算）を追加 | YNUCPC/ynu-icpc-library (MIT) |
 | `src/string/suffix_array.hpp` | `SA` を ACL 互換の `suffix_array` に変更。lcp のずれと非ASCIIでの UB を修正 | kactl を参考に実装 |
 | `src/string/lcp_array.hpp` | 戻り値の長さを ACL と同じ `n-1` に修正 | YNUCPC/ynu-icpc-library (MIT) |
