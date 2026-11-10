@@ -21,6 +21,7 @@ AtCoder の生成AI対策ルール（https://info.atcoder.jp/entry/llm-rules-ja 
 | `src/data-structure/cht.hpp` | CHT（傾き単調・x 任意）。下記 ConvexHullTrick.hpp を置き換え |
 | `src/data-structure/cht_monotone.hpp` | CHT（傾き単調・x 単調）。同上 |
 | `src/data-structure/hash_map.hpp` | 整数キーのハッシュマップ |
+| `src/flow/lowerbound.hpp` | 下限付きフロー（辺の貼り方。maxflow.hpp が要る） |
 | `src/data-structure/fenwick_tree.hpp` | `lower_bound` を追加 |
 | `src/template/hash.sh` | ハッシュ確認用スクリプト |
 | `src/template/compile.sh` | コンパイル用スクリプト |
