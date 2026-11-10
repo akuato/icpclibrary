@@ -9,6 +9,12 @@
 //   ll c = g.flow(0, 0, 0);     s,t 無しで成立するかだけ見る
 //   g.val(i);                   i 番目に足した辺の流量
 //
+// 最大流量での最小費用が欲しいときは2段階にする。
+// 流量の最大値は費用に依らないので
+//   LowerBound a(n);     同じ辺を lo,hi だけで足す
+//   ll F = a.flow(s, t);
+//   LowerBoundMCF b(n);  コスト付きで足し直して b.flow(s, t, F)
+//
 // 流すのは1回だけ。コストは非負であること
 struct LowerBoundMCF {
    ll n, S, T, base = 0;
