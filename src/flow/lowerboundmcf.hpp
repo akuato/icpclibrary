@@ -26,7 +26,8 @@ struct LowerBoundMCF {
       return low[i] + g.g[e.to][e.rev].cap;
    }
    ll flow(ll s, ll t, ll F) {  // 最小費用。無理なら -1
-      d[s] += F, d[t] -= F;     // 下限 F 上限 F の t->s 辺と同じ
+      // 下限 F 上限 F の t->s 辺と同じこと
+      d[s] += F, d[t] -= F;
       ll need = 0;
       rep(v, n + 2) {
          if(d[v] > 0) g.add_edge(S, v, d[v], 0), need += d[v];
