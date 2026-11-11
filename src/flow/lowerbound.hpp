@@ -45,7 +45,7 @@ struct LowerBound {
       ll i = g.add_edge(t, s, inf);  // 先に閉じる辺を張る
       if(!feasible()) return -1;
       auto& e = g.g[t][i];
-      ll f = g.g[s][e.rev].cap;  // t->s に流れた量
+      ll f = g.g[s][e.rev].cap;          // t->s に流れた量
       e.cap = 0, g.g[s][e.rev].cap = 0;  // その辺を外す
       return mx ? f + g.flow(s, t) : f - g.flow(t, s);
    }

@@ -1,17 +1,16 @@
 // Suffix Array。ACL と同じ使い方
 //
-//   vector<int> sa = suffix_array(s);   長さ n
+//   vi sa = suffix_array(s);   長さ n
 //   s[sa[0]:] < s[sa[1]:] < … < s[sa[n-1]:]
 //
 // LCP が要るなら lcp_array.hpp も入れて
-//   vector<int> lcp = lcp_array(s, sa);
+//   vi lcp = lcp_array(s, sa);
 //
 // 空白・大文字・記号そのまま使える（byte で比較）
 // O(n log n)。ACL の SA-IS より3倍遅いが 10^6 で 0.3 秒
 // 参考: kactl
-#define si(a) (int)(size(a))
-vector<int> suffix_array(string s) {
-   ll n = si(s) + 1, lim = 256;
+vi suffix_array(string s) {
+   ll n = sz(s) + 1, lim = 256;
    vector<ll> sa(n), x(n), y(n), ws(max(n, lim));
    // 末尾は番兵 0
    repi(i, 0, n - 1) x[i] = (unsigned char)s[i];
@@ -33,5 +32,5 @@ vector<int> suffix_array(string s) {
                                                        : p++;
       }
    }
-   return vector<int>(sa.begin() + 1, sa.end());  // 番兵を外す
+   return vi(sa.begin() + 1, sa.end());  // 番兵を外す
 }

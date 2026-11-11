@@ -1,10 +1,8 @@
 // https://github.com/KentaroMatsushita/icpc_library/blob/main/src/math/xor-convolution.hpp
 // sizeは２べき
 int my_lg(int n) { return 31 - __builtin_clz(n); }
-#define si(a) (int)(size(a))
-#define fore(e, v) for(auto&& e : v)
 template<typename T> void fwt(vector<T>& f, bool inv = false) {
-   int n = si(f), m = my_lg(n);
+   int n = sz(f), m = my_lg(n);
    rep(i, m) {
       rep(b, n) {
          if(~b >> i & 1) {
@@ -14,8 +12,8 @@ template<typename T> void fwt(vector<T>& f, bool inv = false) {
       }
    }
    if(inv) {
-      T iz = T(1) / T(si(f));
-      fore(e, f) e *= iz;
+      T iz = T(1) / T(sz(f));
+      for(auto& e : f) e *= iz;
    }
 }
 /*

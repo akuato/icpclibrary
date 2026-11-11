@@ -9,18 +9,15 @@
 //
 // 左右で番号空間が別なので、元の番号をそのまま渡さないこと
 // O(E √V)
-#define eb emplace_back
-#define si(a) (int)(size(a))
-#define fore(e, v) for(auto&& e : v)
 struct Bimatch {
    vector<vi> g;
    vi d, mc, used, vv;
    Bimatch(int n, int m) : g(n), mc(m, -1), used(n) {}
-   void add(int u, int v) { g[u].eb(v); }
+   void add(int u, int v) { g[u].emplace_back(v); }
    void bfs() {
-      d.assign(si(g), -1);
+      d.assign(sz(g), -1);
       queue<int> q;
-      rep(i, si(g)) {
+      rep(i, sz(g)) {
          if(!used[i]) {
             q.emplace(i);
             d[i] = 0;
@@ -29,7 +26,7 @@ struct Bimatch {
       while(!q.empty()) {
          int x = q.front();
          q.pop();
-         fore(e, g[x]) {
+         for(auto& e : g[x]) {
             int c = mc[e];
             if(c >= 0 and d[c] == -1) {
                d[c] = d[x] + 1;
@@ -41,7 +38,7 @@ struct Bimatch {
 
    bool dfs(int x) {
       vv[x] = true;
-      fore(e, g[x]) {
+      for(auto& e : g[x]) {
          int c = mc[e];
          if(c < 0 or (!vv[c] and d[c] == d[x] + 1 and dfs(c))) {
             mc[e] = x;
@@ -55,9 +52,9 @@ struct Bimatch {
       int ret = 0;
       while(true) {
          bfs();
-         vv.assign(si(g), false);
+         vv.assign(sz(g), false);
          int f = 0;
-         rep(i, si(g)) if(!used[i] and dfs(i)) f++;
+         rep(i, sz(g)) if(!used[i] and dfs(i)) f++;
          if(!f) return ret;
          ret += f;
       }

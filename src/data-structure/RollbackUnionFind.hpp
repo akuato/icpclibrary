@@ -3,7 +3,7 @@
 using namespace std;
 
 struct RollbackUnionFind {
-   vector<int> data;
+   vi data;
    stack<pair<int, int>> history;
    int inner_snap = 0;
    RollbackUnionFind(int n) { data.resize(n, -1); }

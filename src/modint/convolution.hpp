@@ -3,16 +3,13 @@ int my_lg(int n) { return 31 - __builtin_clz(n); }
 
 // https://github.com/KentaroMatsushita/icpc_library/blob/main/src/FPS/FFT.hpp
 #include <bit>
-#define si(a) (int)(size(a))
-#define fore(e, v) for(auto&& e : v)
-#define eb emplace_back
 mint g = 3;  // 原始根
 void fft(vm& a, bool inv = false) {
-   int n = si(a), s = my_lg(n);
+   int n = sz(a), s = my_lg(n);
    static vm z, iz;
-   while(si(z) <= s) {
-      z.eb(g.pow(mint(-1).x / (1 << si(z))));
-      iz.eb(z.back().inv());
+   while(sz(z) <= s) {
+      z.emplace_back(g.pow(mint(-1).x / (1 << sz(z))));
+      iz.emplace_back(z.back().inv());
    }
    vm b(n);
    repi(i, 1, s + 1) {
@@ -30,7 +27,7 @@ void fft(vm& a, bool inv = false) {
 }
 
 vm mul(vm a, vm b) {
-   int n = si(a), m = si(b);
+   int n = sz(a), m = sz(b);
    if(!n or !m) return {};
    if(min(n, m) <= 30) {
       vm ans(n + m - 1);
@@ -45,6 +42,6 @@ vm mul(vm a, vm b) {
    fft(a, true);
    a.resize(n + m - 1);
    mint iz = mint(z).inv();
-   fore(e, a) e *= iz;
+   for(auto& e : a) e *= iz;
    return a;
 }

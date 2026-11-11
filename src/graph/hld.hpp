@@ -1,12 +1,10 @@
 // https://github.com/KentaroMatsushita/icpc_library/blob/main/src/tree/hld.hpp
-#define si(a) (int)(size(a))
-#define fore(e, v) for(auto&& e : v)
 template<typename G> struct HLD {
    int n;
    G& g;
-   vector<int> sub, in, out, head, rev, par, d;
+   vi sub, in, out, head, rev, par, d;
    HLD(G& g)
-       : n(si(g)),
+       : n(sz(g)),
          g(g),
          sub(n),
          in(n),
@@ -20,7 +18,7 @@ template<typename G> struct HLD {
       sub[x] = 1;
       if(g[x].size() and g[x][0] == p)
          swap(g[x][0], g[x].back());
-      fore(e, g[x]) {
+      for(auto& e : g[x]) {
          if(e == p) continue;
          d[e] = d[x] + 1;
          dfs1(e, x);
@@ -31,7 +29,7 @@ template<typename G> struct HLD {
    void dfs2(int x, int p, int& t) {
       in[x] = t++;
       rev[in[x]] = x;
-      fore(e, g[x]) {
+      for(auto& e : g[x]) {
          if(e == p) continue;
          head[e] = (g[x][0] == e ? head[x] : e);
          dfs2(e, x, t);
