@@ -40,9 +40,10 @@ template<typename G> struct Namori {
       while(!st.empty()) {
          int v = st.back();
          st.pop_back();
-         for(auto& u : g[v]) if(oncyc[u] && --d[u] <= 1) {
-            oncyc[u] = 0, st.emplace_back(u);
-         }
+         for(auto& u : g[v])
+            if(oncyc[u] && --d[u] <= 1) {
+               oncyc[u] = 0, st.emplace_back(u);
+            }
       }
       int c = 0;
       rep(s, n) {
@@ -52,10 +53,11 @@ template<typename G> struct Namori {
             cid[v] = c, root[v] = v;
             idx[v] = sz(cyc[c]), cyc[c].emplace_back(v);
             int nx = -1;
-            for(auto& u : g[v]) if(oncyc[u] && cid[u] == -1) {
-               nx = u;
-               break;
-            }
+            for(auto& u : g[v])
+               if(oncyc[u] && cid[u] == -1) {
+                  nx = u;
+                  break;
+               }
             v = nx;
          }
          c++;
@@ -64,10 +66,11 @@ template<typename G> struct Namori {
       rep(v, n) if(oncyc[v]) q.emplace_back(v);
       rep(i, sz(q)) {
          int v = q[i];
-         for(auto& u : g[v]) if(cid[u] == -1) {
-            cid[u] = cid[v], root[u] = root[v], par[u] = v;
-            dep[u] = dep[v] + 1, q.emplace_back(u);
-         }
+         for(auto& u : g[v])
+            if(cid[u] == -1) {
+               cid[u] = cid[v], root[u] = root[v], par[u] = v;
+               dep[u] = dep[v] + 1, q.emplace_back(u);
+            }
       }
       rep(v, n) assert(cid[v] != -1);  // 木だけの成分がある
    }
