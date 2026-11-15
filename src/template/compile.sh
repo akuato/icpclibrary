@@ -20,6 +20,11 @@ r = resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss
 mb = r / 1048576 if platform.system() == "Darwin" else r / 1024
 print("時間 %.3f s   最大メモリ %.1f MB" % (el, mb), file=sys.stderr)
 sys.exit(p.returncode)' "$o" ;;
-*) g++ $S -g -O1 -fsanitize=address,undefined -fno-sanitize-recover=all \
-      -Wall -Wextra -Wshadow -o "$o" "$f" ;;
+*) W="-Wall -Wextra -Wshadow"
+   # clang（macOS の g++）はラムダの引数が外側を隠すのを
+   # -Wshadow では拾わない。使えるときだけ -Wshadow-all を足す
+   g++ -Wshadow-all -fsyntax-only -x c++ /dev/null 2> /dev/null \
+      && W="$W -Wshadow-all"
+   g++ $S -g -O1 -fsanitize=address,undefined -fno-sanitize-recover=all \
+      $W -o "$o" "$f" ;;
 esac
