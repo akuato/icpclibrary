@@ -2,9 +2,15 @@
 # 環境: Ubuntu 24.04 / g++ 13 / /bin/sh は dash
 #   dash に time は無い。/usr/bin/time も入っていない
 
-# デバッグ（範囲外・UB を行番号つきで出す）
+# デバッグ（範囲外・UB を行番号つきで出す）。本番用
 g++ -std=gnu++20 -g -O1 -fsanitize=address,undefined \
     -Wall -Wextra -Wshadow -o a a.cpp
+
+# 練習用（手元の mac）。g++ の実体が clang なので、ラムダの引数が
+# 外側を隠すのを -Wshadow では拾わない。-Wshadow-all にする。
+# 本番の GCC に -Wshadow-all を渡すとエラーで止まるので打ち分ける
+g++ -std=gnu++20 -g -O1 -fsanitize=address,undefined \
+    -Wall -Wextra -Wshadow-all -o a a.cpp
 
 # 提出前（ジャッジと同じ）。compileg++ a.cpp でも同じ
 g++ -x c++ -g -O2 -std=gnu++20 -static -o a a.cpp
