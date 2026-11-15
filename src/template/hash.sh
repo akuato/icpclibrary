@@ -28,7 +28,11 @@ O="$R/src/template/hash_values.txt"
    echo "#   sh src/template/hash.sh --all"
    echo
    cd "$R/src" || exit
-   for f in $(find . -name '*.hpp' | sed 's|^\./||' | sort); do
+   # 本番で打つものだけ。commands.sh と hash.sh は打たないので除く
+   L=$(find . \( -name '*.hpp' -o -name '*.cpp' -o -name '*.sh' \
+          -o -name 'vimrc' \) | sed 's|^\./||' |
+       grep -v 'template/commands.sh\|template/hash.sh' | sort)
+   for f in $L; do
       printf '%-45s %s\n' "$f" "$(H < "$f")"
       # 「ここから下は」より上だけの版
       # （二分探索を打たないとき用）
