@@ -46,6 +46,7 @@ math/ExtGCD.hpp                               c3fa9b
 math/Matrix.hpp                               fe12c1
 math/aliens.hpp                               ae8183
 math/floor_sum.hpp                            930ca0
+math/hungarian.hpp                            910d09
 math/lagrange.hpp                             d6ad9b
 math/linear_congruence.hpp                    c6a31e
 math/math_template.hpp                        8743ef
@@ -72,5 +73,5 @@ string/z_algorithm.hpp                        03b208
 template/compile.sh                           b3274f
 template/gen.cpp                              1c88b3
 template/stress_test.sh                       019b3c
-template/template.hpp                         c48eb9
+template/template.hpp                         7705aa
 template/vimrc                                73b264

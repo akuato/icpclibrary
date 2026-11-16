@@ -18,7 +18,8 @@
 // 同じ傾きが並ぶのは対応済み
 //
 // f(lam) -> {最適値, 使った個数}。返り値はちょうど k 個のときの最適値
-template<class F> ll aliens(ll lamLo, ll lamHi, ll k, bool mx, F f) {
+template<class F>
+ll aliens(ll lamLo, ll lamHi, ll k, bool mx, F f) {
    ll best = lamLo;
    while(lamLo <= lamHi) {
       ll mid = lamLo + (lamHi - lamLo) / 2;

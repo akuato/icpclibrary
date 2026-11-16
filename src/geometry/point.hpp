@@ -41,7 +41,8 @@ bool on_seg(Pt a, Pt b, Pt p) { return ccw(a, b, p) == 0; }
 // sqrt を通さないので「ちょうど d」も正しく拾える
 bool seg_dist_le(Pt a, Pt b, Pt p, D d) {
    if(a == b) return dist2(a, p) <= d * d;
-   if(dot(a, b, p) >= 0 && dot(b, a, p) >= 0) {  // 垂線の足が内側
+   if(dot(a, b, p) >= 0
+      && dot(b, a, p) >= 0) {  // 垂線の足が内側
       D c = cross(a, b, p);
       return c * c <= d * d * dist2(a, b);
    }
@@ -51,7 +52,8 @@ bool seg_dist_le(Pt a, Pt b, Pt p, D d) {
 // 値が要るとき。こちらは誤差が出る
 double seg_dist(Pt a, Pt b, Pt p) {
    if(!(a == b) && dot(a, b, p) >= 0 && dot(b, a, p) >= 0)
-      return abs((double)cross(a, b, p)) / sqrt((double)dist2(a, b));
+      return abs((double)cross(a, b, p))
+             / sqrt((double)dist2(a, b));
    return sqrt((double)min(dist2(a, p), dist2(b, p)));
 }
 
