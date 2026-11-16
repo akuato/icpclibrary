@@ -1,5 +1,6 @@
 // https://github.com/akuato/icpclibrary
 #include <bits/stdc++.h>
+#include <cassert>  // 環境によっては bits/stdc++.h に入っていない
 using namespace std;
 using ll = long long;
 #define rep(i, n) for(ll i = 0; i < (n); i++)
