@@ -58,6 +58,7 @@
     <li><a href="#Matrix.hpp">Matrix.hpp</a></li>
     <li><a href="#aliens.hpp">aliens.hpp</a></li>
     <li><a href="#floor_sum.hpp">floor_sum.hpp</a></li>
+    <li><a href="#frac.hpp">frac.hpp</a></li>
     <li><a href="#hungarian.hpp">hungarian.hpp</a></li>
     <li><a href="#lagrange.hpp">lagrange.hpp</a></li>
     <li><a href="#linear_congruence.hpp">linear_congruence.hpp</a></li>
@@ -123,6 +124,7 @@
     <li><a href="#Bi-Connected-Components.hpp">Bi-Connected-Components.hpp</a></li>
     <li><a href="#Primes.md">Primes.md</a></li>
     <li><a href="#bit.md">bit.md</a></li>
+    <li><a href="#complexity.md">complexity.md</a></li>
     <li><a href="#dynamic_segtree.hpp">dynamic_segtree.hpp</a></li>
     <li><a href="#geometry.hpp">geometry.hpp</a></li>
     <li><a href="#input.md">input.md</a></li>
@@ -350,6 +352,7 @@ math/BinaryGCD.hpp                            3ed6fb
 math/EulerPhi.hpp                             2443cb
 math/ExtGCD.hpp                               c3fa9b
 math/floor_sum.hpp                            930ca0
+math/frac.hpp                                 7e74af
 math/hungarian.hpp                            910d09
 math/lagrange.hpp                             d6ad9b
 math/linear_congruence.hpp                    c6a31e
@@ -378,7 +381,7 @@ string/z_algorithm.hpp                        03b208
 template/compile.sh                           b3274f
 template/gen.cpp                              1c88b3
 template/stress_test.sh                       019b3c
-template/template.hpp                         c48eb9
+template/template.hpp                         7705aa
 template/vimrc                                73b264
 </code></pre>
 </div>
@@ -406,18 +409,20 @@ template/vimrc                                73b264
 
     <div class="filename">
         <h2 id="template.hpp">template.hpp</h2>
-        md5: c48eb9
+        md5: 7705aa
 
     </div>
     <div class="content content-hpp">
     <pre><code><span class="token comment">// https://github.com/akuato/icpclibrary</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cassert></span>  <span class="token comment">// 環境によっては bits/stdc++.h に入っていない</span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 <span class="token keyword">using</span> ll <span class="token operator">=</span> <span class="token keyword">long</span> <span class="token keyword">long</span><span class="token punctuation">;</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">rep</span><span class="token expression"><span class="token punctuation">(</span>i<span class="token punctuation">,</span> n<span class="token punctuation">)</span> <span class="token keyword">for</span><span class="token punctuation">(</span>ll i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">repi</span><span class="token expression"><span class="token punctuation">(</span>i<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token keyword">for</span><span class="token punctuation">(</span>ll i <span class="token operator">=</span> <span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">all</span><span class="token expression"><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">arr</span><span class="token expression"><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">rbegin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">rend</span><span class="token punctuation">(</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">all</span><span class="token expression"><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">arr</span><span class="token expression"><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">rbegin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">rend</span><span class="token punctuation">(</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">sz</span><span class="token expression"><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token punctuation">(</span>ll<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token function">size</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
 <span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">T</span><span class="token punctuation">,</span> <span class="token keyword">typename</span> <span class="token class-name">S</span><span class="token operator">></span> <span class="token keyword">bool</span> <span class="token function">chmin</span><span class="token punctuation">(</span>T<span class="token operator">&amp;</span> a<span class="token punctuation">,</span> <span class="token keyword">const</span> S<span class="token operator">&amp;</span> b<span class="token punctuation">)</span> <span class="token punctuation">{</span>
    <span class="token keyword">return</span> a <span class="token operator">></span> b <span class="token operator">?</span> a <span class="token operator">=</span> b<span class="token punctuation">,</span> <span class="token number">1</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
@@ -425,13 +430,12 @@ template/vimrc                                73b264
    <span class="token keyword">return</span> a <span class="token operator">&lt;</span> b <span class="token operator">?</span> a <span class="token operator">=</span> b<span class="token punctuation">,</span> <span class="token number">1</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span class="token keyword">using</span> vi <span class="token operator">=</span> vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span><span class="token punctuation">;</span>
-<span class="token keyword">using</span> P <span class="token operator">=</span> pair<span class="token operator">&lt;</span>ll<span class="token punctuation">,</span> ll<span class="token operator">></span><span class="token punctuation">;</span>
 <span class="token keyword">using</span> vvi <span class="token operator">=</span> vector<span class="token operator">&lt;</span>vi<span class="token operator">></span><span class="token punctuation">;</span>
 <span class="token keyword">using</span> vll <span class="token operator">=</span> vector<span class="token operator">&lt;</span>ll<span class="token operator">></span><span class="token punctuation">;</span>
 <span class="token keyword">using</span> vvll <span class="token operator">=</span> vector<span class="token operator">&lt;</span>vll<span class="token operator">></span><span class="token punctuation">;</span>
+<span class="token keyword">using</span> P <span class="token operator">=</span> pair<span class="token operator">&lt;</span>ll<span class="token punctuation">,</span> ll<span class="token operator">></span><span class="token punctuation">;</span>
 <span class="token keyword">using</span> vp <span class="token operator">=</span> vector<span class="token operator">&lt;</span>P<span class="token operator">></span><span class="token punctuation">;</span>
 <span class="token keyword">using</span> i128 <span class="token operator">=</span> __int128_t<span class="token punctuation">;</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">sz</span><span class="token expression"><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token punctuation">(</span>ll<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token function">size</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
 <span class="token keyword">const</span> ll inf <span class="token operator">=</span> <span class="token number">2e18</span><span class="token punctuation">;</span>
  
 <span class="token keyword">void</span> <span class="token function">solve</span><span class="token punctuation">(</span><span class="token keyword">int</span> test<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
@@ -1596,6 +1600,78 @@ ll <span class="token function">floor_sum</span><span class="token punctuation">
              <span class="token operator">-</span> h <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
    <span class="token keyword">return</span> res<span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
+</div>
+
+    <div class="filename">
+        <h2 id="frac.hpp">frac.hpp</h2>
+        md5: 7e74af
+
+    </div>
+    <div class="content content-hpp">
+    <pre><code><span class="token comment">// 有理数（比較だけ。約分しない）</span>
+<span class="token comment">// 割り算を避けたいとき。衝突時刻、傾き、交点の座標など</span>
+<span class="token comment">//</span>
+<span class="token comment">// b > 0 に正規化してから襷掛け。 a/b &lt; c/d  &lt;=>  a*d &lt; c*b</span>
+<span class="token comment">// 約分しないので set / map では「a&lt;b でも b&lt;a でもない」= 同値となり、</span>
+<span class="token comment">// 1/3 と 2/6 は同じキーになる（sort では順序は不定、両方残る）</span>
+<span class="token comment">//</span>
+<span class="token comment">// オーバーフロー: |a|,|b| &lt;= 3e9 までなら ll でも足りるが __int128 で潰す</span>
+<span class="token comment">// 四則演算は無い。必要なら a,b を直接触る（約分を忘れると桁が増える）</span>
+<span class="token keyword">struct</span> <span class="token class-name">Frac</span> <span class="token punctuation">{</span>
+   ll a<span class="token punctuation">,</span> b<span class="token punctuation">;</span>
+   <span class="token function">Frac</span><span class="token punctuation">(</span>ll a_ <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> ll b_ <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token function">a</span><span class="token punctuation">(</span>a_<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">b</span><span class="token punctuation">(</span>b_<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span>b <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         a <span class="token operator">=</span> <span class="token operator">-</span>a<span class="token punctuation">;</span>
+         b <span class="token operator">=</span> <span class="token operator">-</span>b<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+   <span class="token punctuation">}</span>
+   <span class="token keyword">bool</span> <span class="token keyword">operator</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token keyword">const</span> Frac<span class="token operator">&amp;</span> o<span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">(</span>__int128<span class="token punctuation">)</span>a <span class="token operator">*</span> o<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">b</span> <span class="token generic class-name"><span class="token operator">&lt;</span> <span class="token punctuation">(</span>__int128<span class="token punctuation">)</span>o<span class="token punctuation">.</span>a <span class="token operator">*</span> b<span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+   <span class="token keyword">bool</span> <span class="token keyword">operator</span><span class="token operator">></span></span></span><span class="token punctuation">(</span><span class="token keyword">const</span> Frac<span class="token operator">&amp;</span> o<span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> o <span class="token operator">&lt;</span> <span class="token operator">*</span><span class="token keyword">this</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+   <span class="token keyword">bool</span> <span class="token keyword">operator</span><span class="token operator">==</span><span class="token punctuation">(</span><span class="token keyword">const</span> Frac<span class="token operator">&amp;</span> o<span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token operator">!</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token keyword">this</span> <span class="token operator">&lt;</span> o<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token punctuation">(</span>o <span class="token operator">&lt;</span> <span class="token operator">*</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment">// 例: NWERC 2020 F。隣り合うドローンの衝突時刻 Frac(x[j]-x[i], v[i]-v[j])</span>
+<span class="token comment">//     を priority_queue に入れて早い順に処理</span>
+ 
+<span class="token comment">// ---- 比較関数の作り方 ----------------------------------------------</span>
+<span class="token comment">//</span>
+<span class="token comment">// 1. 型そのものに順序を入れる（使い回すならこれ）</span>
+<span class="token comment">//</span>
+<span class="token comment">//      struct T {</span>
+<span class="token comment">//         bool operator&lt;(const T&amp; o) const { ... }   // const を2つとも忘れない</span>
+<span class="token comment">//         bool operator>(const T&amp; o) const { return o &lt; *this; }</span>
+<span class="token comment">//      };</span>
+<span class="token comment">//</span>
+<span class="token comment">//    末尾の const と引数の const&amp; が無いと set / sort が呼べない。</span>
+<span class="token comment">//    本体は &lt; だけ書いて、> は &lt; を使い回す。</span>
+<span class="token comment">//    これで sort / set&lt;T> / map&lt;T,X> / priority_queue&lt;T> が全部動く。</span>
+<span class="token comment">//</span>
+<span class="token comment">// 2. priority_queue は &lt; を使って「大きい順」に出す。小さい順が欲しければ</span>
+<span class="token comment">//</span>
+<span class="token comment">//      priority_queue&lt;T, vector&lt;T>, greater&lt;>> pq;   // operator> が要る</span>
+<span class="token comment">//</span>
+<span class="token comment">// 3. 型を触らず、その場だけで決めたいとき（ラムダ）</span>
+<span class="token comment">//</span>
+<span class="token comment">//      auto cmp = [](const T&amp; p, const T&amp; q){ return ...; };</span>
+<span class="token comment">//      sort(all(v), cmp);</span>
+<span class="token comment">//      set&lt;T, decltype(cmp)> s(cmp);</span>
+<span class="token comment">//      priority_queue&lt;T, vector&lt;T>, decltype(cmp)> pq(cmp);</span>
+<span class="token comment">//</span>
+<span class="token comment">// 4. 比較用の構造体を別に作る（operator&lt; ではなく operator()）</span>
+<span class="token comment">//</span>
+<span class="token comment">//      struct Cmp { bool operator()(const T&amp; p, const T&amp; q) const { ... } };</span>
+<span class="token comment">//      set&lt;T, Cmp> s;</span>
+<span class="token comment">//</span>
+<span class="token comment">// 注意: &lt;= を返すと壊れる。必ず狭義。</span>
+<span class="token comment">//   set も sort も「a&lt;b でも b&lt;a でもない => 等しい」で動いているので、</span>
+<span class="token comment">//   a &lt; a が真になると sort が落ちたり set が壊れたりする。</span>
+<span class="token comment">//</span>
+<span class="token comment">// 多段のタイブレークは tuple に詰めるのが早い。</span>
+<span class="token comment">//   return make_tuple(x, -y, z) &lt; make_tuple(o.x, -o.y, o.z);</span>
+</code></pre>
 </div>
 
     <div class="filename">
@@ -3956,6 +4032,94 @@ n = 20 で 3.5e9。</p>
 </div>
 
     <div class="filename">
+        <h2 id="complexity.md">complexity.md</h2>
+    </div>
+    <div class="content content-md"><h1>計算量の目安</h1>
+<p>迷ったら<strong>掛け算して数字を出す</strong>。<code>log</code> の個数で判断しない。</p>
+<h2>2秒で通るか</h2>
+<pre><code>1e8 以下      ほぼ通る
+1e8 〜 1e9    中身しだい。配列アクセスだけなら通る
+1e9 超        落ちる
+</code></pre>
+<h2>式ごとの値</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>n=1e3</th>
+<th>n=1e4</th>
+<th>n=1e5</th>
+<th>n=2e5</th>
+<th>n=1e6</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>n log n</code></td>
+<td>1e4</td>
+<td>1.3e5</td>
+<td>2e6</td>
+<td>4e6</td>
+<td>2e7</td>
+</tr>
+<tr>
+<td><code>n log^2 n</code></td>
+<td>1e5</td>
+<td>2e6</td>
+<td>2.8e7</td>
+<td>6.2e7</td>
+<td>4e8</td>
+</tr>
+<tr>
+<td><code>n sqrt(n)</code></td>
+<td>3e4</td>
+<td>1e6</td>
+<td>3.2e7</td>
+<td>8.9e7</td>
+<td>1e9</td>
+</tr>
+<tr>
+<td><code>n log^3 n</code></td>
+<td>1e6</td>
+<td>2.3e7</td>
+<td>4.6e8</td>
+<td>1.1e9</td>
+<td>7.9e9</td>
+</tr>
+<tr>
+<td><code>n^2</code></td>
+<td>1e6</td>
+<td>1e8</td>
+<td>1e10</td>
+<td>4e10</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>n^2 log n</code></td>
+<td>1e7</td>
+<td>1.3e9</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<p><code>n = 2e5</code> なら <code>n log^2 n</code> は 6200万。<strong>log 2つは普通に通る</strong>。
+<code>log</code> を1つに落とす必要があるのは <code>n log^3 n</code> から。</p>
+<h2>1回の重さ</h2>
+<p>同じ「1回」でも 30 倍くらい違う。上の数字に掛ける。</p>
+<pre><code>配列アクセス・四則演算      1
+セグ木のクエリ1回           log n 回ぶんの軽い操作
+unordered_map の1操作       10
+map / set の1操作           30（log n も別に掛かる）
+再帰呼び出し                 2〜3
+</code></pre>
+<p><code>n log n</code> でも中身が <code>map</code> なら <code>n log^2 n</code> の配列版より遅い。</p>
+<h2>測る</h2>
+<p>見積もりで迷ったら最悪ケースを作って測る。30秒で済む。</p>
+<pre><code>sh src/template/compile.sh a.cpp t
+</code></pre>
+</div>
+
+    <div class="filename">
         <h2 id="dynamic_segtree.hpp">dynamic_segtree.hpp</h2>
         md5: 279c02
 
@@ -5016,6 +5180,80 @@ while(m) {
 </tbody></table>
 <p>メモリ6分の1、速度8.5倍。添字の入れ替えだけでは効かない。
 n ≤ 64 なら <code>ll</code>、それ以上なら <code>bitset</code> の行を持つ。</p>
+<h2>深い再帰はスタックを食う</h2>
+<p>1段あたり <strong>100〜300 バイト</strong>。深さ 10⁶ なら 100〜300 MB で、配列と同じ桁。
+配列のバイト数だけ数えて安心すると落ちる。</p>
+<p>NWERC 2017 F（n = 10⁶、深さ 10⁶）の実測と提出結果。</p>
+<table>
+<thead>
+<tr>
+<th>版</th>
+<th>1段</th>
+<th>スタック</th>
+<th>Codeforces</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>再帰</td>
+<td>282 B</td>
+<td>282 MB</td>
+<td><strong>RE</strong> / 498 MB</td>
+</tr>
+<tr>
+<td>再帰（別実装）</td>
+<td>157 B</td>
+<td>157 MB</td>
+<td>AC / 543 MB</td>
+</tr>
+<tr>
+<td>非再帰</td>
+<td>—</td>
+<td>—</td>
+<td>AC / <strong>242 MB</strong></td>
+</tr>
+</tbody></table>
+<p><strong>RE した方がメモリ表示は小さい。</strong> 合計メモリではなく
+スタック単体で死んでいる。表示された数字だけ見ても気づけない。</p>
+<p>同じコードでも書き換えでフレームサイズが倍変わる。偶然通っている
+ことがあるので、通ったから安全とは言えない。</p>
+<p>判断はこれだけ：</p>
+<p><strong>深さが n に比例する再帰 + n ≥ 10⁵ → 無条件で非再帰化。</strong>
+見積もりはしない。5分で終わる。</p>
+<p>ローカルは <code>ulimit -s</code> が 8 MB の別枠なので、合計を食う前に
+Segfault する。<strong>ローカルで Segfault したらジャッジでは RE</strong>。</p>
+<h3>潰し方（帰りがけに処理がないとき）</h3>
+<p>関数はそのまま残して、呼び出しだけ <code>push_back</code> に変える。差分が
+小さいので本番でも安全。</p>
+<pre><code class="language-cpp">struct Arg { int L, R, p; };
+vector&lt;Arg&gt; st;
+
+auto f = [&amp;](int L, int R, int p) -&gt; void {
+   if(R - L &lt;= 1){ ...; return; }        // return はそのまま
+   ...
+   st.push_back({L, id, id});            // f(L, id, id) の代わり
+   st.push_back({id + 1, R, id});
+};
+
+st.push_back({0, n, -1});
+while(sz(st)){
+   auto t = st.back(); st.pop_back();
+   f(t.L, t.R, t.p);
+}
+</code></pre>
+<p>置き換えは「呼び出し → <code>push_back</code>」だけ。</p>
+<h3>帰りがけに処理があるとき</h3>
+<p>状態番号を持たせて2回訪問する。<code>lowlink</code> や <code>hld</code> はこっち。</p>
+<pre><code class="language-cpp">st.push_back({v, 0});
+while(sz(st)){
+   auto [v, ph] = st.back(); st.pop_back();
+   if(ph == 0){
+      st.push_back({v, 1});                   // 帰りがけを先に積む
+      for(int c : ch[v]) st.push_back({c, 0});
+   } else {
+      // 子が全部終わったあとの処理
+   }
+}
+</code></pre>
 </div>
 
     <div class="filename">
@@ -5168,14 +5406,29 @@ n ≤ 64 なら <code>ll</code>、それ以上なら <code>bitset</code> の行�
 </ul>
 <h2>手が止まったとき</h2>
 <ul>
-<li>良い性質が見えない → <strong>実は状態数が少ないのでは？</strong></li>
-<li>構築問題 → 小さいケースの答えを全部並べる。1つではなく全部</li>
-<li>未知の定数・係数がある → 全探索の答えに合わせて決める</li>
-<li>候補が多すぎる → 鳩の巣。どれか1つは必ず残らないか</li>
-<li>候補が絞れた → そこで得た情報を全部使ったか。値だけでなく位置も</li>
-<li>効く制約が1〜2本 → 貪欲。交換レート（コスト ÷ 消費する資源）の順</li>
-<li>答えに上限がある → その上限で打ち切れないか</li>
-<li>2つの量が単調 → 片方を反転して向きを揃えられないか</li>
+<li><p>良い性質が見えない → <strong>実は状態数が少ないのでは？</strong></p>
+</li>
+<li><p>構築問題 → 小さいケースの答えを全部並べる。1つではなく全部</p>
+</li>
+<li><p>未知の定数・係数がある → 全探索の答えに合わせて決める</p>
+</li>
+<li><p>候補が多すぎる → 鳩の巣。どれか1つは必ず残らないか</p>
+</li>
+<li><p>候補が絞れた → そこで得た情報を全部使ったか。値だけでなく位置も</p>
+</li>
+<li><p>効く制約が1〜2本 → 貪欲。交換レート（コスト ÷ 消費する資源）の順</p>
+</li>
+<li><p>答えに上限がある → その上限で打ち切れないか</p>
+</li>
+<li><p>2つの量が単調 → 片方を反転して向きを揃えられないか</p>
+</li>
+<li><p>「ちょうど◯◯」を数えたい → 下界か上界を示して「最小値/最大値
+の個数」「しきい値以上の個数」に言い換える。場合分けが消える</p>
+</li>
+<li><p>条件が複数あるとき → 「要素を減らしても壊れないもの」と
+「そうでないもの」に分ける。前者は尺取りで窓を決め、
+後者を窓の中で数える</p>
+</li>
 </ul>
 <h2>期待値・確率</h2>
 <ul>
@@ -5198,6 +5451,9 @@ n ≤ 64 なら <code>ll</code>、それ以上なら <code>bitset</code> の行�
 </ul>
 <h2>重い・通らない</h2>
 <ul>
+<li>log が増えて怯んだ → 捨てる前に掛け算する。n = 2e5 なら
+log 2つで 6200万、普通に通る。落とすのは log 3つから。
+表は memo/complexity.md</li>
 <li>オーダーは足りているのに遅い → 情報を落としている</li>
 <li>アクセスが 10^8 超 → 連続かランダムか。連続 10^9/秒、ランダム 10^8/秒</li>
 <li>内側がランダムアクセス → 連続にできないか</li>
