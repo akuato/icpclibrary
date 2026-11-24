@@ -29,8 +29,14 @@ struct LowerBound {
       id.push_back(g.add_edge(u, v, hi - lo));
       d[v] += lo, d[u] -= lo;
    }
-   ll val(ll i) {  // i 番目の辺の流量
-      auto& e = g.g[from[i]][id[i]];
+   // add を呼んだ順に 0,1,2,... と数えて、i 番目の辺に実際に
+   // 流れた量。下限 lo を含んだ値が返る
+   //
+   // 逆辺の残容量 = その辺に流した量。逆辺は容量 0 で作られ、
+   // 流すたびに同じ分だけ増えるため。容量を hi-lo にして
+   // あるので、下限 lo を足して戻す
+   ll val(ll i) {
+      auto& e = g.g[from[i]][id[i]];  // 順方向の辺
       return low[i] + g.g[e.to][e.rev].cap;
    }
    bool feasible() {  // 超頂点を繋ぎ、預けた量を流し切れるか
@@ -52,3 +58,13 @@ struct LowerBound {
    ll max_flow(ll s, ll t) { return st(s, t, true); }
    ll min_flow(ll s, ll t) { return st(s, t, false); }
 };
+
+// 使った問題
+// NWERC 2022 L (Last Guess)
+//   各文字の個数に下限・上限があり、各位置には入れてよい文字が
+//   決まっている、という割り当て問題
+//     S → 文字 c      add(S, c, lo, hi)
+//     文字 c → 位置 i  add(c, i, 0, 1)   置けるときだけ張る
+//     位置 i → T      add(i, T, 1, 1)
+//   max_flow(S, T) が位置数と一致すれば成功。あとは val(i) で
+//   流量 1 の「文字 → 位置」の辺を読めば答えになる
