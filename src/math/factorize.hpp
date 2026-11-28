@@ -11,7 +11,9 @@
 //   「素数の累乗か」 = factorize して種類が 1 つか
 
 using u64 = uint64_t;
-u64 mul_mod(u64 a, u64 b, u64 m) { return (__uint128_t)a * b % m; }
+u64 mul_mod(u64 a, u64 b, u64 m) {
+   return (__uint128_t)a * b % m;
+}
 u64 pow_mod_u(u64 a, u64 n, u64 m) {
    u64 r = 1;
    a %= m;
@@ -55,7 +57,9 @@ bool is_prime(u64 n) {
 u64 pollard(u64 n) {
    if(!(n & 1)) return 2;
    for(u64 c = 1;; c++) {
-      auto f = [&](u64 x) { return (mul_mod(x, x, n) + c) % n; };
+      auto f = [&](u64 x) {
+         return (mul_mod(x, x, n) + c) % n;
+      };
       u64 x = 0, y = 0, prod = 1, g = 1;
       const ll B = 128;  // まとめて gcd を取る幅
       for(ll len = 1; g == 1; len <<= 1) {
