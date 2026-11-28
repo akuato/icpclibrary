@@ -24,6 +24,11 @@ AtCoder の生成AI対策ルール（https://info.atcoder.jp/entry/llm-rules-ja 
 | `src/flow/lowerbound.hpp` | 下限付きフロー（辺の貼り方。maxflow.hpp が要る） |
 | `src/flow/lowerboundmcf.hpp` | 下限付き最小費用流（mincostflow.hpp が要る） |
 | `src/data-structure/fenwick_tree.hpp` | `lower_bound` を追加 |
+| `src/data-structure/sparse_table.hpp` | Sparse Table（冪等な演算の静的区間クエリ） |
+| `src/math/gauss.hpp` | ガウスの消去法（行列式・連立方程式・逆行列。double と mint） |
+| `src/math/numeric.hpp` | 適応 Simpson 積分、黄金分割探索、整数の三分探索 |
+| `src/math/mod_sqrt_log.hpp` | mod の平方根（Tonelli-Shanks）と離散対数（BSGS）。kactl の ModSqrt・ModLog（CC0）を参考に実装 |
+| `src/geometry/real.hpp` | 半平面交差と最小包含円（double） |
 | `src/template/hash.sh` | ハッシュ確認用スクリプト |
 | `src/template/compile.sh` | コンパイル用スクリプト |
 | `src/template/commands.sh` | 本番で打つコマンド集 |
